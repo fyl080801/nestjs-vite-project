@@ -1,5 +1,6 @@
 # compiled output
 /dist
+/output
 /node_modules
 
 # Logs
