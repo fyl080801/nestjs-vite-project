@@ -5,11 +5,11 @@ export class ViteService {
 
   async bootstrap() {
     if (this.server) {
-      return;
+      return this.server;
     }
 
-    this.server = await createServer();
+    this.server = await createServer({ server: { middlewareMode: true } });
 
-    this.server.listen(0);
+    return this.server;
   }
 }
