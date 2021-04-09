@@ -7,6 +7,7 @@ const onInput = (evt) => {
   text.value = evt.target.value;
 };
 </script>
+
 <template>
   <div>
     <p>{{ text }}</p>

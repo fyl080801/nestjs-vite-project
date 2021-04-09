@@ -7,6 +7,7 @@
     "output",
     "src",
     "**/*spec.ts",
-    "./*.ts"
+    "./*.ts",
+    "**/frontend/**/*"
   ]
 }
