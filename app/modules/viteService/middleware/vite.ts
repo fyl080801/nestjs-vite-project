@@ -7,8 +7,6 @@ export class ViteMiddleware implements NestMiddleware {
   constructor(private readonly service: ViteService) {}
 
   async use(req: IncomingMessage, res: ServerResponse, next: any) {
-    const server = await this.service.bootstrap();
-
-    server.middlewares(req, res, next);
+    (await this.service.bootstrap()).middlewares(req, res, next);
   }
 }

@@ -17,7 +17,7 @@ export class ViteServiceModule implements NestModule {
   async configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(ViteMiddleware)
-      .forRoutes({ path: '(.*)', method: RequestMethod.ALL });
+      .forRoutes({ path: '/*', method: RequestMethod.ALL });
   }
 }
 

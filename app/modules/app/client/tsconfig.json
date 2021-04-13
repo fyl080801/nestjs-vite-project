@@ -1,1 +1,1 @@
-{ "extends": "../../../../tsconfig.frontend.json" }
+{ "extends": "../../../../tsconfig.client.json" }
