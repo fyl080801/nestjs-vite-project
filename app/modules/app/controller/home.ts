@@ -1,13 +1,14 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from '../service/app';
-// import { ViteService } from '../../viteService';
+import { Controller, Get, Header } from '@nestjs/common';
+// import { AppService } from '../service/app';
+import { ViteService } from '../../viteService';
 
 @Controller()
 export class HomeController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly viteService: ViteService) {}
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Header('Content-Type', 'text/html')
+  async index(): Promise<string> {
+    return await this.viteService.render('app/client/index.html');
   }
 }
