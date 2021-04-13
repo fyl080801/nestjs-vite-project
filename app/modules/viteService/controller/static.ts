@@ -3,7 +3,7 @@ import { ViteService } from '../service/vite';
 import * as fs from 'fs';
 import * as path from 'path';
 
-@Controller('static')
+@Controller({ path: 'static' })
 export class StaticController {
   constructor(private readonly viteService: ViteService) {}
 
