@@ -6,6 +6,8 @@ import {
 } from '@nestjs/platform-fastify';
 
 async function bootstrap() {
+  process.setMaxListeners(0);
+
   const fastify = new FastifyAdapter();
 
   const app = await NestFactory.create<NestFastifyApplication>(
