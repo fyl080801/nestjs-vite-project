@@ -18,7 +18,7 @@ export class ViteService {
     const template = await this.server.transformIndexHtml(
       this.request.url,
       await fs.promises.readFile(
-        path.resolve(process.cwd(), 'app/modules', view),
+        path.resolve(process.cwd(), 'src/modules', view),
         'utf-8',
       ),
     );

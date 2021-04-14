@@ -4,7 +4,7 @@ import * as path from 'path';
 import legacy from '@vitejs/plugin-legacy';
 
 export default defineConfig({
-  root: path.join(process.cwd(), '/app/modules'),
+  root: path.join(process.cwd(), '/src/modules'),
   server: {
     middlewareMode: true,
     watch: {

@@ -1,5 +1,5 @@
 import { Controller, Get, Header } from '@nestjs/common';
-import { ViteService } from '../../viteService';
+import { ViteService } from '../../vite-service';
 
 @Controller()
 export class HomeController {

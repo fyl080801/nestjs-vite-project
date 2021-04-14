@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { HomeController } from './controller/home';
-import { ViteServiceModule } from '../viteService';
+import { ViteServiceModule } from '../vite-service';
 
 @Module({
   imports: [ViteServiceModule],
