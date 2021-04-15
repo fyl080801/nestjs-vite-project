@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "charset": "utf8",
     "module": "commonjs",
     "declaration": true,
     "removeComments": true,
@@ -9,8 +8,14 @@
     "allowSyntheticDefaultImports": true,
     "target": "es2017",
     "sourceMap": true,
-    "outDir": "./output",
+    "outDir": "./dist",
     "baseUrl": "./",
-    "incremental": true
+    "incremental": true,
+    "paths": {
+      "@seed/app": ["modules/app/src"],
+      "@seed/app/*": ["modules/app/src/*"],
+      "@seed/vite_service": ["modules/vite_service/src"],
+      "@seed/vite_service/*": ["modules/vite_service/src/*"]
+    }
   }
 }

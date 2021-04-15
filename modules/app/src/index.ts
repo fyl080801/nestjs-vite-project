@@ -1,10 +1,9 @@
 import { Module } from '@nestjs/common';
 import { HomeController } from './controller/home';
-import { ViteServiceModule } from '../vite-service';
+import { ViteServiceModule } from '@seed/vite_service';
 
 @Module({
   imports: [ViteServiceModule],
   controllers: [HomeController],
-  providers: [],
 })
-export class SetupModule {}
+export class AppModule {}

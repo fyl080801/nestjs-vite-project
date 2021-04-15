@@ -4,9 +4,8 @@
     "node_modules",
     "test",
     "dist",
-    "output",
     "**/*spec.ts",
-    "./*.ts",
+    "vite.config.ts",
     "**/client/**/*"
   ]
 }

@@ -1,5 +1,5 @@
+import { ViteService } from '@seed/vite_service';
 import { Controller, Get, Header } from '@nestjs/common';
-import { ViteService } from '../../vite-service';
 
 @Controller()
 export class HomeController {
@@ -12,4 +12,8 @@ export class HomeController {
       title: 'nestjs + vite',
     });
   }
+  // @Get()
+  // index(): string {
+  //   return 'hello';
+  // }
 }
