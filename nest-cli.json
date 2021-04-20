@@ -1,26 +1,6 @@
 {
   "collection": "@nestjs/schematics",
   "sourceRoot": "src",
-  "projects": {
-    "app": {
-      "type": "library",
-      "root": "modules/app",
-      "entryFile": "index",
-      "sourceRoot": "modules/app/src",
-      "compilerOptions": {
-        "tsConfigPath": "modules/app/tsconfig.json"
-      }
-    },
-    "vite_service": {
-      "type": "library",
-      "root": "modules/vite_service",
-      "entryFile": "index",
-      "sourceRoot": "modules/vite_service/src",
-      "compilerOptions": {
-        "tsConfigPath": "modules/vite_service/tsconfig.json"
-      }
-    }
-  },
   "compilerOptions": {
     "webpack": false
   }

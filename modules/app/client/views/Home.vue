@@ -17,7 +17,7 @@ const req = () => {
 </script>
 
 <template>
-  <div>输入了: {{ text }} !!</div>
+  <div>输入了: {{ text }} !</div>
   <div><input :value="text" @input="update" /></div>
   <div><button @click="req">request</button></div>
 </template>

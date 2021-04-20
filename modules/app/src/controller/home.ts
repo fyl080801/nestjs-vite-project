@@ -12,8 +12,4 @@ export class HomeController {
       title: 'nestjs + vite',
     });
   }
-  // @Get()
-  // index(): string {
-  //   return 'hello';
-  // }
 }
