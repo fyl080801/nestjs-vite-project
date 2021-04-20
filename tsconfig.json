@@ -10,12 +10,6 @@
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
-    "incremental": true,
-    "paths": {
-      "@seed/app": ["modules/app/src"],
-      "@seed/app/*": ["modules/app/src/*"],
-      "@seed/vite_service": ["modules/vite_service/src"],
-      "@seed/vite_service/*": ["modules/vite_service/src/*"]
-    }
+    "incremental": true
   }
 }

@@ -1,11 +1,12 @@
 {
-  "name": "@seed/app",
+  "name": "@seed/vite_service",
   "version": "0.0.0",
   "description": "> TODO: description",
   "author": "fengyuanliang3 <fengyuanliang2@jd.com>",
   "homepage": "",
   "license": "ISC",
   "main": "src/index.ts",
+  "module": "src/index.ts",
   "directories": {
     "src": "src"
   },
@@ -16,6 +17,6 @@
     "access": "public"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "build": "nest build"
   }
 }
