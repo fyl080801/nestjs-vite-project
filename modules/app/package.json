@@ -6,7 +6,6 @@
   "homepage": "",
   "license": "ISC",
   "main": "src/index.ts",
-  "module": "src/index.ts",
   "directories": {
     "src": "src"
   },
@@ -17,7 +16,8 @@
     "access": "public"
   },
   "scripts": {
-    "build": "nest build"
+    "clean": "rimraf dist",
+    "start:dev": "tsc --watch -p tsconfig.json"
   },
   "dependencies": {
     "@seed/vite_service": "^0.0.0"
