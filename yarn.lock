@@ -5989,15 +5989,6 @@ loader-utils@^1.1.0:
     emojis-list "^3.0.0"
     json5 "^1.0.1"
 
-loader-utils@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/loader-utils/-/loader-utils-2.0.0.tgz#e4cace5b816d425a166b5f097e10cd12b36064b0"
-  integrity sha512-rP4F0h2RaWSvPEkD7BLDFQnvSf+nK+wr3ESUjNTyAGobqrijmW92zc+SO6d4p4B1wh7+B/Jg1mkQe5NYUEHtHQ==
-  dependencies:
-    big.js "^5.2.2"
-    emojis-list "^3.0.0"
-    json5 "^2.1.2"
-
 locate-path@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/locate-path/-/locate-path-2.0.0.tgz#2b568b265eec944c6d9c0de9c3dbbbca0354cd8e"
@@ -8905,14 +8896,13 @@ ts-jest@^26.5.5:
     semver "7.x"
     yargs-parser "20.x"
 
-ts-loader@^9.0.1:
-  version "9.0.1"
-  resolved "https://registry.yarnpkg.com/ts-loader/-/ts-loader-9.0.1.tgz#de3daa2057ef949a6bf68d2ff1c1f6a346f2fc93"
-  integrity sha512-b08vtDzkH+dVIjickgNbsOyfTaIDzX1idCxkcrVDAgPpsnL79RJn7Q944k7YTc9yPXRX/iBsAgefMHX/yqxa2g==
+ts-loader@^9.0.2:
+  version "9.0.2"
+  resolved "https://registry.yarnpkg.com/ts-loader/-/ts-loader-9.0.2.tgz#8e73d836122ba99f9c28f207a22d280c2502bd7a"
+  integrity sha512-whFcWsvFRb91lzLLwU06jKS8ZwQsXA7Rk2NNLBjWNDFoaZgfSjrh8UJvc7sMknR9Vhs6NroQlw+0+2wW3fjR9Q==
   dependencies:
     chalk "^4.1.0"
     enhanced-resolve "^5.0.0"
-    loader-utils "^2.0.0"
     micromatch "^4.0.0"
     semver "^7.3.4"
 
@@ -9365,10 +9355,10 @@ webpack@5.28.0:
     watchpack "^2.0.0"
     webpack-sources "^2.1.1"
 
-webpack@^5.34.0:
-  version "5.34.0"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.34.0.tgz#8f12bfd3474e7543232345b89294cfe8a5191c10"
-  integrity sha512-+WiFMgaZqhu7zKN64LQ7z0Ml4WWI+9RwG6zmS0wJDQXiCeg3hpN8fYFNJ+6WlosDT55yVxTfK7XHUAOVR4rLyA==
+webpack@^5.35.0:
+  version "5.35.0"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.35.0.tgz#4db23c2b96c4e53a90c5732d7cdb301a84a33576"
+  integrity sha512-au3gu55yYF/h6NXFr0KZPZAYxS6Nlc595BzYPke8n0CSff5WXcoixtjh5LC/8mXunkRKxhymhXmBY0+kEbR6jg==
   dependencies:
     "@types/eslint-scope" "^3.7.0"
     "@types/estree" "^0.0.47"
