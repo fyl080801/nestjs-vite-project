@@ -4,7 +4,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { REQUEST } from '@nestjs/core';
 import { renderString } from 'nunjucks';
-import { ENV, Envs } from '@seed/common';
+import { ENV, Envs, MODULE_PATH } from '@seed/common';
 
 export class ViteService {
   private server: ViteDevServer;
@@ -25,7 +25,7 @@ export class ViteService {
     const template = await this.server.transformIndexHtml(
       this.request.url,
       await fs.promises.readFile(
-        path.join(process.cwd(), '/packages', viewPath.join('/')),
+        path.join(MODULE_PATH, viewPath.join('/')),
         'utf-8',
       ),
     );
