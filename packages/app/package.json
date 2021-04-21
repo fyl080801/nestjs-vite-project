@@ -12,7 +12,7 @@
   ],
   "scripts": {
     "clean": "rimraf dist",
-    "build": "tsc -b",
+    "build": "tsc -b && vite build",
     "watch": "tsc -b -w --preserveWatchOutput",
     "start:dev": "nodemon --inspect dist/lib/index.js"
   },
