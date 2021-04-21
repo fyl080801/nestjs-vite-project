@@ -11,7 +11,7 @@
     "^.+\\.(t|j)s$": "ts-jest"
   },
   "moduleNameMapper": {
-    "@seed/app/(.*)": "<rootDir>/../modules/app/src/$1",
-    "@seed/app": "<rootDir>/../modules/app/src"
+    "@seed/app/(.*)": "<rootDir>/../packages/app/src/$1",
+    "@seed/app": "<rootDir>/../packages/app/src"
   }
 }

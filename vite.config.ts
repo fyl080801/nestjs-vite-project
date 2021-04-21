@@ -1,10 +1,10 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
-import * as path from 'path';
 import legacy from '@vitejs/plugin-legacy';
+import { MODULE_PATH } from '@seed/common';
 
 export default defineConfig({
-  root: path.join(process.cwd(), '/modules'),
+  root: MODULE_PATH,
   server: {
     middlewareMode: true,
     watch: {

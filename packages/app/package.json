@@ -5,19 +5,16 @@
   "author": "fengyuanliang3 <fengyuanliang2@jd.com>",
   "homepage": "",
   "license": "ISC",
-  "main": "src/index.ts",
-  "directories": {
-    "src": "src"
-  },
+  "main": "dist/lib/index.js",
+  "types": "dist/lib/index.d.ts",
   "files": [
-    "src"
+    "dist"
   ],
-  "publishConfig": {
-    "access": "public"
-  },
   "scripts": {
     "clean": "rimraf dist",
-    "start:dev": "tsc --watch -p tsconfig.json"
+    "build": "tsc -b && vite build",
+    "watch": "tsc -b -w --preserveWatchOutput",
+    "start:dev": "nodemon --inspect dist/lib/index.js"
   },
   "dependencies": {
     "@seed/vite_service": "^0.0.0"
