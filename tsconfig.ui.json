@@ -8,6 +8,5 @@
     "importHelpers": true,
     "lib": ["dom", "esnext"],
     "types": ["vite/client"]
-  },
-  "include": ["./**/*.ts", "./**/*.tsx", "./**/*.vue"]
+  }
 }
