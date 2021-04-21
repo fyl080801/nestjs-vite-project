@@ -4,6 +4,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { REQUEST } from '@nestjs/core';
 import { renderString } from 'nunjucks';
+import { ENV, Envs } from '@seed/common';
 
 export class ViteService {
   private server: ViteDevServer;
@@ -15,10 +16,16 @@ export class ViteService {
   }
 
   async render(view: string, data?: any) {
+    const viewPath = view.split('/');
+
+    if (ENV === Envs.development) {
+      console.log('xxxx');
+    }
+
     const template = await this.server.transformIndexHtml(
       this.request.url,
       await fs.promises.readFile(
-        path.join(process.cwd(), '/modules', view),
+        path.join(process.cwd(), '/packages', viewPath.join('/')),
         'utf-8',
       ),
     );

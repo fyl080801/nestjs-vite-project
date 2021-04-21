@@ -6,18 +6,17 @@
   "private": true,
   "license": "MIT",
   "workspaces": [
-    "modules/*"
+    "packages/*"
   ],
   "scripts": {
-    "prebuild": "rimraf dist",
-    "clean": "lerna run clean --parallel && rimraf dist",
+    "prebuild": "lerna run clean --parallel && rimraf dist",
     "build": "lerna run build --stream && nest build",
     "watch": "lerna run watch --parallel",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"modules/**/*.ts\"",
-    "start": "nest start",
-    "start:dev": "lerna run start:dev & nest start --watch",
-    "start:prod": "node dist/main",
-    "lint": "eslint \"{lib,src,apps,modules,test}/**/*.ts\" --fix",
+    "start": "NODE_ENV=production node dist/main",
+    "start:dev": "lerna run start:dev & NODE_ENV=development nest start --watch",
+    "clean": "lerna run clean --parallel && rimraf dist",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"packages/**/*.ts\"",
+    "lint": "eslint \"{lib,src,apps,packages,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
@@ -83,11 +82,11 @@
     "testEnvironment": "node",
     "roots": [
       "<rootDir>/src/",
-      "<rootDir>/modules/"
+      "<rootDir>/packages/"
     ],
     "moduleNameMapper": {
-      "@seed/app/(.*)": "<rootDir>/modules/app/src/$1",
-      "@seed/app": "<rootDir>/modules/app/src"
+      "@seed/app/(.*)": "<rootDir>/packages/app/src/$1",
+      "@seed/app": "<rootDir>/packages/app/src"
     }
   }
 }
