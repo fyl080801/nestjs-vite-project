@@ -5,7 +5,7 @@ import { ViteService } from '@seed/vite_service';
 export class HomeController {
   constructor(private readonly vite: ViteService) {}
 
-  @Get()
+  @Get('login')
   @Header('Content-Type', 'text/html')
   async index() {
     return this.vite.render('admin_login/src/index.html', {

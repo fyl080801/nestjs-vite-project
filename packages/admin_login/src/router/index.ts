@@ -9,7 +9,7 @@ const WHITE_NAME_LIST = [LoginRoute.name, REDIRECT_NAME];
 
 // app router
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory('admin_login'),
   routes: (basicRoutes as unknown) as RouteRecordRaw[],
   strict: true,
   scrollBehavior: () => ({ left: 0, top: 0 }),

@@ -1,4 +1,7 @@
-import type { AppRouteRecordRaw, AppRouteModule } from '../types';
+import type {
+  AppRouteRecordRaw,
+  //  AppRouteModule
+} from '../types';
 
 // import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from '/@/router/routes/basic';
 
@@ -6,15 +9,15 @@ import type { AppRouteRecordRaw, AppRouteModule } from '../types';
 // import { PageEnum } from '/@/enums/pageEnum';
 // import { t } from '/@/hooks/web/useI18n';
 
-const modules = import.meta.globEager('./modules/**/*.ts');
+// const modules = import.meta.globEager('./modules/**/*.ts');
 
-const routeModuleList: AppRouteModule[] = [];
+// const routeModuleList: AppRouteModule[] = [];
 
-Object.keys(modules).forEach((key) => {
-  const mod = modules[key].default || {};
-  const modList = Array.isArray(mod) ? [...mod] : [mod];
-  routeModuleList.push(...modList);
-});
+// Object.keys(modules).forEach((key) => {
+//   const mod = modules[key].default || {};
+//   const modList = Array.isArray(mod) ? [...mod] : [mod];
+//   routeModuleList.push(...modList);
+// });
 
 // export const asyncRoutes = [PAGE_NOT_FOUND_ROUTE, ...routeModuleList];
 

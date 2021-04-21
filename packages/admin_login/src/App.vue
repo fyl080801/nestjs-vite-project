@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { ConfigProvider } from 'ant-design-vue';
+import { Button } from 'ant-design-vue';
 </script>
 
 <template>
-  <ConfigProvider>
-    <RouterView />
-  </ConfigProvider>
+  <div>
+    <Button>sss</Button>
+  </div>
 </template>
