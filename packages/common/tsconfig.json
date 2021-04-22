@@ -1,9 +1,8 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "declaration": true,
-    "outDir": "../../dist/modules/vite_service"
+    "outDir": "./dist"
   },
-  "include": ["src/**/*"],
+  "include": ["lib/**/*"],
   "exclude": ["node_modules", "dist", "test", "**/*spec.ts"]
 }

@@ -1,0 +1,29 @@
+{
+  "name": "@seed/vite_service",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "author": "fengyuanliang3 <fengyuanliang2@jd.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "dist/lib/index.js",
+  "types": "dist/lib/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "tsc -b",
+    "watch": "tsc -b -w --preserveWatchOutput",
+    "start:dev": "nodemon --inspect dist/lib/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fyl080801/nest-test.git"
+  },
+  "bugs": {
+    "url": "https://github.com/fyl080801/nest-test/issues"
+  },
+  "dependencies": {
+    "@seed/common": "^1.0.0"
+  }
+}

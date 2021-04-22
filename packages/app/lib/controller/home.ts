@@ -8,12 +8,8 @@ export class HomeController {
   @Get()
   @Header('Content-Type', 'text/html')
   async index(): Promise<string> {
-    return await this.vite.render('app/client/index.html', {
+    return await this.vite.render('app/src/index.html', {
       title: 'nestjs + vite',
     });
   }
-  // @Get()
-  // index(): string {
-  //   return 'hello';
-  // }
 }

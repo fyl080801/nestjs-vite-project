@@ -5,7 +5,8 @@
     "test",
     "dist",
     "**/*spec.ts",
+    "**/src/**/*",
     "vite.config.ts",
-    "**/client/**/*"
+    "**/vite.config.ts"
   ]
 }
