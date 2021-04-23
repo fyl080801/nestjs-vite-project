@@ -18,17 +18,20 @@ export class ViteService {
   async render(view: string, data?: any) {
     const viewPath = view.split('/');
 
-    if (ENV === Envs.development) {
-      console.log('xxxx');
-    }
+    let template = '';
 
-    const template = await this.server.transformIndexHtml(
-      this.request.url,
-      await fs.promises.readFile(
-        path.join(MODULE_PATH, viewPath.join('/')),
-        'utf-8',
-      ),
-    );
+    if (ENV === Envs.development) {
+      // viewPath.splice(1, 0, 'src');
+      template = await (await this.bootstrap()).transformIndexHtml(
+        this.request.url,
+        await fs.promises.readFile(
+          path.join(MODULE_PATH, viewPath.join('/')),
+          'utf-8',
+        ),
+      );
+    } else {
+      //
+    }
 
     return renderString(template, data);
   }
