@@ -21,7 +21,7 @@ export class ViteService {
     let template = '';
 
     if (ENV === Envs.development) {
-      viewPath.splice(1, 0, 'src');
+      // viewPath.splice(1, 0, 'src');
       template = await (await this.bootstrap()).transformIndexHtml(
         this.request.url,
         await fs.promises.readFile(
