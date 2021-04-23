@@ -1,12 +1,16 @@
 import {
   MiddlewareConsumer,
   Module,
+  Global,
   NestModule,
   RequestMethod,
 } from '@nestjs/common';
 import { ViteService } from './service/vite';
 import { ViteMiddleware } from './middleware/vite';
 
+export * from './decorators/view';
+
+@Global()
 @Module({
   imports: [],
   controllers: [],
