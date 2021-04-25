@@ -3,9 +3,16 @@ import { HomeController } from './controller/home';
 import { AppController } from './controller/app';
 import { ViewConstantsService, ViteServiceModule } from '@seed/vite_service';
 import * as path from 'path';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
-  imports: [ViteServiceModule],
+  imports: [
+    ViteServiceModule,
+    ServeStaticModule.forRoot({
+      serveRoot: '/app',
+      rootPath: path.resolve(__dirname, '../ui'),
+    }),
+  ],
   controllers: [HomeController, AppController],
 })
 export class AppModule implements OnModuleInit {
