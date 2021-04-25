@@ -1,10 +1,5 @@
 import App from './App.vue';
 import { createApp } from 'vue';
-import router, { setupRouter } from './router';
-
-if (import.meta.env.DEV) {
-  import('ant-design-vue/dist/antd.less');
-}
 
 // createApp(App).mount('#app');
 
@@ -14,7 +9,7 @@ if (import.meta.env.DEV) {
   // registerGlobComp(app);
 
   // Configure routing
-  setupRouter(app);
+  // setupRouter(app);
 
   // Configure vuex store
   // setupStore(app);
@@ -26,10 +21,10 @@ if (import.meta.env.DEV) {
   // setupErrorHandle(app);
 
   // Mount when the route is ready
-  await Promise.all([
-    // setupI18n(app),
-    router.isReady(),
-  ]);
+  // await Promise.all([
+  //   // setupI18n(app),
+  //   router.isReady(),
+  // ]);
 
   app.mount('#app', true);
 
