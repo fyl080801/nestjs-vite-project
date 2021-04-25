@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite';
 import * as path from 'path';
-import imp from 'vite-plugin-imp';
 import base from '../../vite.config';
 
 export default defineConfig({
@@ -19,19 +18,4 @@ export default defineConfig({
     outDir: path.resolve(__dirname, 'dist/ui'),
     assetsDir: 'admin_login/static',
   },
-  plugins: [
-    imp({
-      libList: [
-        {
-          libName: 'ant-design-vue',
-          style(name) {
-            if (/popconfirm/.test(name)) {
-              return `ant-design-vue/es/popover/style/index.css`;
-            }
-            return `ant-design-vue/es/${name}/style/index.css`;
-          },
-        },
-      ],
-    }),
-  ],
 });
