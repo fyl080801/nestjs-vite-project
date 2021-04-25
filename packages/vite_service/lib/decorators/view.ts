@@ -15,6 +15,26 @@ import { ViteService } from '../service/vite';
 
 @Injectable({ scope: Scope.REQUEST })
 export class ViewInterceptor implements NestInterceptor {
+  constructor(private readonly vite?: ViteService) {}
+
+  intercept(
+    context: ExecutionContext,
+    next: CallHandler<any>,
+  ): Observable<any> | Promise<Observable<any>> {
+    const ctx = context.switchToHttp();
+    const request = ctx.getRequest<Request>();
+    const view = request.headers['view-path'];
+
+    return next.handle().pipe(
+      map(async (data) => {
+        return await this.vite.render(view, data);
+      }),
+    );
+  }
+}
+
+@Injectable({ scope: Scope.REQUEST })
+export class RequestHeaderInterceptor implements NestInterceptor {
   constructor(private readonly view: string) {}
 
   intercept(
@@ -23,14 +43,9 @@ export class ViewInterceptor implements NestInterceptor {
   ): Observable<any> | Promise<Observable<any>> {
     const ctx = context.switchToHttp();
     const request = ctx.getRequest<Request>();
+    request.headers['view-path'] = this.view;
 
-    return next.handle().pipe(
-      map(async (data) => {
-        const vite = new ViteService(request);
-        await vite.bootstrap();
-        return await vite.render(this.view, data);
-      }),
-    );
+    return next.handle();
   }
 }
 
@@ -39,7 +54,10 @@ export const View = (path: string, view?: string) => {
 
   return applyDecorators(
     Get(pathAndView ? path : undefined),
-    UseInterceptors(new ViewInterceptor(pathAndView ? view : path)),
+    UseInterceptors(
+      new RequestHeaderInterceptor(pathAndView ? view : path),
+      ViewInterceptor,
+    ),
     Header('Content-Type', 'text/html'),
   );
 };
