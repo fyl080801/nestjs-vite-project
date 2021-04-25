@@ -2,20 +2,31 @@ import {
   MiddlewareConsumer,
   Module,
   NestModule,
+  OnModuleInit,
   RequestMethod,
 } from '@nestjs/common';
 import { ViteService } from './service/vite';
+import { ViewConstantsService } from './service/viewConstants';
 import { ViteMiddleware } from './middleware/vite';
+import { ENV, Envs } from '@seed/common';
 
 export * from './decorators/view';
 
 @Module({
   imports: [],
   controllers: [],
-  providers: [ViteService],
-  exports: [ViteService],
+  providers: [ViteService, ViewConstantsService],
+  exports: [ViteService, ViewConstantsService],
 })
-export class ViteServiceModule implements NestModule {
+export class ViteServiceModule implements NestModule, OnModuleInit {
+  constructor(private readonly vite: ViteService) {}
+
+  async onModuleInit() {
+    if (ENV === Envs.development) {
+      await this.vite.bootstrap();
+    }
+  }
+
   async configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(ViteMiddleware)
@@ -23,4 +34,4 @@ export class ViteServiceModule implements NestModule {
   }
 }
 
-export { ViteService };
+export { ViteService, ViewConstantsService };

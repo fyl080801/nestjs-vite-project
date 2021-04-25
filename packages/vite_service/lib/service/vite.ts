@@ -5,11 +5,15 @@ import * as path from 'path';
 import { REQUEST } from '@nestjs/core';
 import { renderString } from 'nunjucks';
 import { ENV, Envs, MODULE_PATH } from '@seed/common';
+import { ViewConstantsService } from '../service/viewConstants';
 
 export class ViteService {
   private server: ViteDevServer;
 
-  constructor(@Inject(REQUEST) private readonly request: Request) {}
+  constructor(
+    @Inject(REQUEST) private readonly request: Request,
+    private readonly constants: ViewConstantsService,
+  ) {}
 
   async bootstrap() {
     return (this.server = this.server || (await createServer()));
@@ -21,7 +25,6 @@ export class ViteService {
     let template = '';
 
     if (ENV === Envs.development) {
-      // viewPath.splice(1, 0, 'src');
       template = await (await this.bootstrap()).transformIndexHtml(
         this.request.url,
         await fs.promises.readFile(
@@ -30,7 +33,14 @@ export class ViteService {
         ),
       );
     } else {
-      //
+      template = await fs.promises.readFile(
+        path.join(
+          this.constants.getPath(viewPath[0]),
+          'ui',
+          viewPath.join('/'),
+        ),
+        'utf-8',
+      );
     }
 
     return renderString(template, data);
