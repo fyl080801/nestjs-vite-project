@@ -15,7 +15,7 @@ export default defineConfig({
         main: path.resolve(__dirname, 'index.html'),
       },
     },
-    outDir: path.resolve(__dirname, 'dist/ui'),
+    outDir: path.resolve(__dirname, 'dist'),
     assetsDir: 'app/static',
   },
 });

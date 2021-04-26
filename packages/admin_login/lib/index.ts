@@ -9,7 +9,8 @@ import * as path from 'path';
     ViteServiceModule,
     // ServeStaticModule.forRoot({
     //   serveRoot: '/admin_login',
-    //   rootPath: path.resolve(__dirname, '../ui'),
+    //   serveStaticOptions: { fallthrough: false },
+    //   rootPath: __dirname,
     // }),
   ],
   controllers: [HomeController],

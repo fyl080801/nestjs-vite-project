@@ -27,18 +27,11 @@ export class ViteService {
     if (ENV === Envs.development) {
       template = await (await this.bootstrap()).transformIndexHtml(
         this.request.url,
-        await fs.promises.readFile(
-          path.join(MODULE_PATH, viewPath.join('/')),
-          'utf-8',
-        ),
+        await fs.promises.readFile(path.join(MODULE_PATH, view), 'utf-8'),
       );
     } else {
       template = await fs.promises.readFile(
-        path.join(
-          this.constants.getPath(viewPath[0]),
-          'ui',
-          viewPath.join('/'),
-        ),
+        path.join(this.constants.getPath(viewPath[0]), view),
         'utf-8',
       );
     }

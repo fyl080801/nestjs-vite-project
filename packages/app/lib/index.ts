@@ -10,7 +10,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
     ViteServiceModule,
     ServeStaticModule.forRoot({
       serveRoot: '/app',
-      rootPath: path.resolve(__dirname, '../ui'),
+      rootPath: __dirname,
     }),
   ],
   controllers: [HomeController, AppController],
