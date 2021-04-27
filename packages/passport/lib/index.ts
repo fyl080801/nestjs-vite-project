@@ -8,6 +8,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './utils/constants';
 import { JwtStrategy } from './strategy/jwt';
 import { JwtAuthGuard } from './guard/jwt';
+import { UnauthorizedrRedirect } from './filter/unauthorized';
 
 @Module({
   imports: [
@@ -24,9 +25,17 @@ import { JwtAuthGuard } from './guard/jwt';
     LocalAuthGuard,
     JwtAuthGuard,
     JwtStrategy,
+    UnauthorizedrRedirect,
   ],
-  exports: [UserService, AuthService, LocalAuthGuard, JwtModule, JwtAuthGuard],
+  exports: [
+    UserService,
+    AuthService,
+    LocalAuthGuard,
+    JwtModule,
+    JwtAuthGuard,
+    UnauthorizedrRedirect,
+  ],
 })
 export class PassportModule {}
 
-export { LocalAuthGuard };
+export { LocalAuthGuard, UnauthorizedrRedirect };

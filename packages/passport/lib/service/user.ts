@@ -6,12 +6,12 @@ export type User = any;
 export class UserService {
   private readonly users = [
     {
-      userId: 1,
+      id: 1,
       username: 'admin',
       password: '123',
     },
     {
-      userId: 2,
+      id: 2,
       username: 'guest',
       password: '123',
     },
