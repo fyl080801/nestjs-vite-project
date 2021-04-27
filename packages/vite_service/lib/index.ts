@@ -8,7 +8,7 @@ import {
 import { ViteService } from './service/vite';
 import { StaticService } from './service/static';
 import { ViteMiddleware } from './middleware/vite';
-import { ENV, Envs } from '@seed/common';
+import { ENV, Environments } from '@seed/common';
 
 export * from './decorators/view';
 
@@ -22,7 +22,7 @@ export class ViteServiceModule implements NestModule, OnModuleInit {
   constructor(private readonly vite: ViteService) {}
 
   async onModuleInit() {
-    if (ENV === Envs.development) {
+    if (ENV === Environments.development) {
       await this.vite.bootstrap();
     }
   }

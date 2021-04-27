@@ -1,23 +1,26 @@
 {
-  "name": "@seed/app",
-  "version": "0.0.0",
+  "name": "@seed/passport",
+  "version": "1.0.0",
   "description": "> TODO: description",
   "author": "fengyuanliang3 <fengyuanliang2@jd.com>",
-  "homepage": "",
+  "homepage": "https://github.com/fyl080801/nest-test#readme",
   "license": "ISC",
   "main": "dist/lib/index.js",
   "types": "dist/lib/index.d.ts",
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fyl080801/nest-test.git"
+  },
   "scripts": {
     "clean": "rimraf dist",
-    "build": "vite build && tsc -b",
+    "build": "tsc -b",
     "watch": "tsc -b -w --preserveWatchOutput",
     "start:dev": "nodemon --inspect dist/lib/index.js"
   },
-  "dependencies": {
-    "@seed/passport": "^1.0.0",
-    "@seed/vite_service": "^0.0.0"
+  "bugs": {
+    "url": "https://github.com/fyl080801/nest-test/issues"
   }
 }

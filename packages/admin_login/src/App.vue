@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, reactive } from 'vue';
 import Button from 'ant-design-vue/lib/button';
 import Form from 'ant-design-vue/lib/form';
 import Input from 'ant-design-vue/lib/input';
@@ -16,8 +16,15 @@ const FormItem = Form.Item;
 const PasswordInput = Input.Password;
 
 const loading = ref(false);
+const formData = reactive({ username: '', password: '' });
 
-const onFinish = () => {};
+const onFinish = async () => {
+  await fetch('/auth/login', {
+    method: 'POST',
+    body: JSON.stringify(formData),
+    headers: { 'Content-Type': 'application/json' },
+  });
+};
 
 const onFinishFailed = () => {
   notification.open({
@@ -39,24 +46,21 @@ const onFinishFailed = () => {
       <Form
         :label-col="{ span: 5 }"
         :wrapper-col="{ span: 18 }"
+        :model="formData"
+        :rules="{
+          username: [{ required: true, message: '请输入!' }],
+          password: [{ required: true, message: '请输入!' }],
+        }"
         @finish="onFinish"
         @finish-failed="onFinishFailed"
         :style="{ width: '480px', padding: '40px 0 0 20px' }"
       >
-        <FormItem
-          label="账号"
-          name="username"
-          :rules="[{ required: true, message: '请输入!' }]"
-        >
-          <Input />
+        <FormItem label="账号" name="username">
+          <Input v-model:value="formData.username" />
         </FormItem>
 
-        <FormItem
-          label="密码"
-          name="password"
-          :rules="[{ required: true, message: '请输入!' }]"
-        >
-          <PasswordInput />
+        <FormItem label="密码" name="password">
+          <PasswordInput v-model:value="formData.password" />
         </FormItem>
 
         <FormItem :wrapper-col="{ offset: 5, span: 18 }">
