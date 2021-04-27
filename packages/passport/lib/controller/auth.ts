@@ -9,14 +9,13 @@ export class AuthController {
 
   @UseGuards(AuthGuard('local'))
   @Post('login')
-  async login(@Request() request: Request) {
-    console.log(request['user']);
-    return this.authService.login(request['user']);
+  async login(@Request() request: any) {
+    return this.authService.login(request.user);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')
-  getProfile(@Request() request: Request) {
-    return request['user'];
+  getProfile(@Request() request: any) {
+    return request.user;
   }
 }

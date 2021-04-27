@@ -47,19 +47,23 @@ const onFinishFailed = () => {
         :label-col="{ span: 5 }"
         :wrapper-col="{ span: 18 }"
         :model="formData"
-        :rules="{
-          username: [{ required: true, message: '请输入!' }],
-          password: [{ required: true, message: '请输入!' }],
-        }"
         @finish="onFinish"
         @finish-failed="onFinishFailed"
         :style="{ width: '480px', padding: '40px 0 0 20px' }"
       >
-        <FormItem label="账号" name="username">
+        <FormItem
+          label="账号"
+          name="username"
+          :rules="[{ required: true, message: '请输入!' }]"
+        >
           <Input v-model:value="formData.username" />
         </FormItem>
 
-        <FormItem label="密码" name="password">
+        <FormItem
+          label="密码"
+          name="password"
+          :rules="[{ required: true, message: '请输入!' }]"
+        >
           <PasswordInput v-model:value="formData.password" />
         </FormItem>
 
