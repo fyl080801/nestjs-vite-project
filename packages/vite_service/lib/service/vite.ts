@@ -5,14 +5,14 @@ import * as path from 'path';
 import { REQUEST } from '@nestjs/core';
 import { renderString } from 'nunjucks';
 import { ENV, Envs, MODULE_PATH } from '@seed/common';
-import { ViewConstantsService } from '../service/viewConstants';
+import { StaticService } from './static';
 
 export class ViteService {
   private server: ViteDevServer;
 
   constructor(
     @Inject(REQUEST) private readonly request: Request,
-    private readonly constants: ViewConstantsService,
+    private readonly staticService: StaticService,
   ) {}
 
   async bootstrap() {
@@ -31,7 +31,7 @@ export class ViteService {
       );
     } else {
       template = await fs.promises.readFile(
-        path.join(this.constants.getPath(viewPath[0]), view),
+        path.join(this.staticService.getPath(viewPath[0]), view),
         'utf-8',
       );
     }

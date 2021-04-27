@@ -6,7 +6,7 @@ import {
   RequestMethod,
 } from '@nestjs/common';
 import { ViteService } from './service/vite';
-import { ViewConstantsService } from './service/viewConstants';
+import { StaticService } from './service/static';
 import { ViteMiddleware } from './middleware/vite';
 import { ENV, Envs } from '@seed/common';
 
@@ -15,8 +15,8 @@ export * from './decorators/view';
 @Module({
   imports: [],
   controllers: [],
-  providers: [ViteService, ViewConstantsService],
-  exports: [ViteService, ViewConstantsService],
+  providers: [ViteService, StaticService],
+  exports: [ViteService, StaticService],
 })
 export class ViteServiceModule implements NestModule, OnModuleInit {
   constructor(private readonly vite: ViteService) {}
@@ -34,4 +34,4 @@ export class ViteServiceModule implements NestModule, OnModuleInit {
   }
 }
 
-export { ViteService, ViewConstantsService };
+export { ViteService, StaticService };

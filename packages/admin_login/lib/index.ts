@@ -1,24 +1,15 @@
 import { Module, OnModuleInit } from '@nestjs/common';
 import { HomeController } from './controller/home';
-import { ViewConstantsService, ViteServiceModule } from '@seed/vite_service';
-import * as path from 'path';
-// import { ServeStaticModule } from '@nestjs/serve-static';
+import { StaticService, ViteServiceModule } from '@seed/vite_service';
 
 @Module({
-  imports: [
-    ViteServiceModule,
-    // ServeStaticModule.forRoot({
-    //   serveRoot: '/admin_login',
-    //   serveStaticOptions: { fallthrough: false },
-    //   rootPath: __dirname,
-    // }),
-  ],
+  imports: [ViteServiceModule],
   controllers: [HomeController],
 })
 export class AdminLoginModule implements OnModuleInit {
-  constructor(private readonly constants: ViewConstantsService) {}
+  constructor(private readonly staticService: StaticService) {}
 
   onModuleInit() {
-    this.constants.setPath('admin_login', path.resolve(__dirname, '../'));
+    this.staticService.addStatic('admin_login', __dirname);
   }
 }
