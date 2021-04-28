@@ -13,9 +13,5 @@ export default createRouter({
       path: '/login/error',
       component: () => import('./views/Error.vue'),
     },
-    {
-      path: '/(.*)',
-      redirect: { name: 'login' },
-    },
   ],
 });
