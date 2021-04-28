@@ -1,2 +1,10 @@
 auth:
   loginUrl: /admin/login
+  jwt:
+    secret: seed
+    expiresIn: 1800s
+  cookie:
+    name: token
+
+cookie:
+  secret: seed

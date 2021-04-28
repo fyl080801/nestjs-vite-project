@@ -19,7 +19,7 @@ export class UnauthorizedrRedirect implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
 
-    const config = this.configService.get<AuthConfig>('auth');
+    const config = this.configService.get<AuthConfig>('auth', {});
 
     // 要从配置里获取
     return response.redirect(`${config.loginUrl}?returnUrl=${request.url}`);

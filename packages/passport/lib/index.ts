@@ -2,21 +2,31 @@ import { Module } from '@nestjs/common';
 import { UserService } from './service/user';
 import { AuthService } from './service/auth';
 import { LocalStrategy } from './strategy/local';
-import { LocalAuthGuard } from './guard/local';
+import { CookieStrategy } from './strategy/cookie';
 import { AuthController } from './controller/auth';
 import { JwtModule } from '@nestjs/jwt';
-import { jwtConstants } from './utils/constants';
 import { JwtStrategy } from './strategy/jwt';
-import { JwtAuthGuard } from './guard/jwt';
 import { UnauthorizedrRedirect } from './filter/unauthorized';
+import { ConfigService } from '@nestjs/config';
+import { AuthConfig } from './types';
+import { jwtConstants } from './utils/constants';
 
 export * from './decorators/authorization';
+export * from './types';
 
 @Module({
   imports: [
-    JwtModule.register({
-      secret: jwtConstants.secret,
-      signOptions: { expiresIn: '1800s' },
+    JwtModule.registerAsync({
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => {
+        const authConfig = configService.get<AuthConfig>('auth', {});
+        return {
+          secret: authConfig.jwt?.secret || jwtConstants.secret,
+          signOptions: {
+            expiresIn: authConfig.jwt?.expiresIn || jwtConstants.expiresIn,
+          },
+        };
+      },
     }),
   ],
   controllers: [AuthController],
@@ -24,20 +34,12 @@ export * from './decorators/authorization';
     UserService,
     AuthService,
     LocalStrategy,
-    LocalAuthGuard,
-    JwtAuthGuard,
     JwtStrategy,
+    CookieStrategy,
     UnauthorizedrRedirect,
   ],
-  exports: [
-    UserService,
-    AuthService,
-    LocalAuthGuard,
-    JwtModule,
-    JwtAuthGuard,
-    UnauthorizedrRedirect,
-  ],
+  exports: [JwtModule, UserService, AuthService, UnauthorizedrRedirect],
 })
 export class PassportModule {}
 
-export { LocalAuthGuard, UnauthorizedrRedirect, AuthService };
+export { UnauthorizedrRedirect, AuthService };

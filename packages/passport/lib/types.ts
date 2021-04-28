@@ -1,3 +1,4 @@
 export interface AuthConfig {
-  loginUrl: string;
+  loginUrl?: string;
+  [key: string]: any;
 }
