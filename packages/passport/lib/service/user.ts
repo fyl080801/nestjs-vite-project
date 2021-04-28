@@ -21,7 +21,9 @@ export class UserService {
     return this.users.find((user) => user.username === username);
   }
 
-  async verify(user: any) {
-    return true;
+  async verify(payload: any) {
+    return this.users.find(
+      (user) => user.username === payload.username && user.id === payload.id,
+    );
   }
 }

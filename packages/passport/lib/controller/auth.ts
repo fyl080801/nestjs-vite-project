@@ -1,6 +1,6 @@
 import { Request, Post, Controller, Get } from '@nestjs/common';
 import { AuthService } from '../service/auth';
-import { Authorization } from '../decorators/authorization';
+import { Authentication } from '../decorators/authentication';
 import { Jwt } from '../decorators/jwt';
 
 @Controller('auth')
@@ -8,7 +8,7 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('login')
-  @Authorization()
+  @Authentication()
   async login(@Request() request: any) {
     return this.authService.login(request.user);
   }

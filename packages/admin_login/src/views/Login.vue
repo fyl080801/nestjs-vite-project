@@ -1,7 +1,10 @@
 <script lang="ts" setup>
 import { ElForm, ElCard, ElFormItem, ElInput, ElButton } from 'element-plus';
+import { useRoute } from 'vue-router';
 import { ref, reactive } from 'vue';
 
+const { query } = useRoute();
+const loginUrl = `/admin/login?returnUrl=${query.returnUrl}`;
 const formRef = ref();
 const formData = reactive({ username: '', password: '' });
 const onLogin = async () => {
@@ -19,7 +22,7 @@ const onLogin = async () => {
     <ElForm
       :ref="(el) => (formRef = el)"
       :model="formData"
-      action="/admin/login"
+      :action="loginUrl"
       method="POST"
     >
       <ElFormItem

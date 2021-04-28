@@ -1,6 +1,6 @@
 import { Controller, Post, Request } from '@nestjs/common';
 import { View } from '@seed/vite_service';
-import { Authorization, AuthService } from '@seed/passport';
+import { Authenticated, Authentication, AuthService } from '@seed/passport';
 
 @Controller('admin')
 export class HomeController {
@@ -21,7 +21,8 @@ export class HomeController {
   }
 
   @Post('login')
-  @Authorization({ redirect: '/admin/login/error' })
+  @Authentication({ redirect: '/admin/login/error' })
+  @Authenticated()
   async login(@Request() request: any) {
     return this.authService.login(request.user);
   }

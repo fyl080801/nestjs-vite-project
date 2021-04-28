@@ -11,7 +11,7 @@ import { ConfigService } from '@nestjs/config';
 import { AuthConfig } from './types';
 import { jwtConstants } from './utils/constants';
 
-export * from './decorators/authorization';
+export * from './decorators/authentication';
 export * from './types';
 
 @Module({
