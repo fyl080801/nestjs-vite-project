@@ -1,9 +1,8 @@
-import { defineConfig } from 'vite';
+import { mergeConfig } from 'vite';
 import * as path from 'path';
 import base from '../../vite.config';
 
-export default defineConfig({
-  ...base,
+export default mergeConfig(base, {
   root: path.resolve(__dirname, '../'),
   resolve: {
     alias: { './app/src/main.ts': './src/main.ts' },

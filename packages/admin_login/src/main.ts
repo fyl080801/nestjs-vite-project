@@ -1,10 +1,12 @@
 import App from './App.vue';
 import { createApp } from 'vue';
 
-// createApp(App).mount('#app');
+import router from './router';
 
 (async () => {
   const app = createApp(App);
+
+  app.use(router);
   // Register global components
   // registerGlobComp(app);
 

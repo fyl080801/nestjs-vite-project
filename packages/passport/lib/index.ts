@@ -10,6 +10,8 @@ import { JwtStrategy } from './strategy/jwt';
 import { JwtAuthGuard } from './guard/jwt';
 import { UnauthorizedrRedirect } from './filter/unauthorized';
 
+export * from './decorators/authorization';
+
 @Module({
   imports: [
     JwtModule.register({
@@ -38,4 +40,4 @@ import { UnauthorizedrRedirect } from './filter/unauthorized';
 })
 export class PassportModule {}
 
-export { LocalAuthGuard, UnauthorizedrRedirect };
+export { LocalAuthGuard, UnauthorizedrRedirect, AuthService };

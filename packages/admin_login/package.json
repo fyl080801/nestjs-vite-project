@@ -24,6 +24,7 @@
     "url": "https://github.com/fyl080801/nestjs-vite-project/issues"
   },
   "dependencies": {
+    "@seed/passport": "^1.0.0",
     "@seed/vite_service": "^0.0.0"
   }
 }
