@@ -1,4 +1,3 @@
-import { ENV, Environments } from '@seed/common';
 import { HttpAdapterHost } from '@nestjs/core';
 import * as path from 'path';
 import { Injectable } from '@nestjs/common';
@@ -18,13 +17,11 @@ export class StaticService {
   }
 
   addStatic(name: string, root: string) {
-    if (ENV === Environments.production) {
-      this.setPath(name, path.resolve(root, '../'));
-      this.adapterHost.httpAdapter.useStaticAssets({
-        root: path.resolve(root, `../${name}`),
-        prefix: `/${name}`,
-        decorateReply: false,
-      });
-    }
+    this.setPath(name, path.resolve(root, '../'));
+    this.adapterHost.httpAdapter.useStaticAssets({
+      root: path.resolve(root, `../${name}`),
+      prefix: `/${name}`,
+      decorateReply: false,
+    });
   }
 }

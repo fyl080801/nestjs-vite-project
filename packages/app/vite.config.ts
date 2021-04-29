@@ -5,7 +5,7 @@ import base from '../../vite.config';
 export default mergeConfig(base, {
   root: path.resolve(__dirname, '../'),
   resolve: {
-    alias: { './app/src/main.ts': './src/main.ts' },
+    alias: { '/app/src/main.ts': './src/main.ts' },
   },
   build: {
     manifest: true,

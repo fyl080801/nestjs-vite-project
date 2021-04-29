@@ -22,5 +22,13 @@
   },
   "bugs": {
     "url": "https://github.com/fyl080801/nest-test/issues"
+  },
+  "dependencies": {
+    "@nestjs/common": "^7.6.15",
+    "@nestjs/config": "^0.6.3",
+    "@nestjs/jwt": "^7.2.0",
+    "@nestjs/passport": "^7.1.5",
+    "passport-cookie": "^1.0.9",
+    "passport-local": "^1.0.0"
   }
 }

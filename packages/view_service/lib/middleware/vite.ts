@@ -1,5 +1,5 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
-import { IncomingMessage, ServerResponse } from 'node:http';
+import { Request, Response, NextFunction } from 'express';
 import { ENV, Environments } from '@seed/common';
 import { ViewService } from '../service/view';
 
@@ -7,7 +7,7 @@ import { ViewService } from '../service/view';
 export class ViteMiddleware implements NestMiddleware {
   constructor(private readonly service: ViewService) {}
 
-  async use(req: IncomingMessage, res: ServerResponse, next: any) {
+  async use(req: Request, res: Response, next: NextFunction) {
     if (ENV === Environments.development) {
       (await this.service.bootstrap()).middlewares(req, res, next);
     } else {

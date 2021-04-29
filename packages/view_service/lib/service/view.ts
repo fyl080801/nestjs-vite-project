@@ -4,7 +4,6 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { REQUEST } from '@nestjs/core';
 import { renderString } from 'nunjucks';
-import { ENV, Environments, MODULE_PATH } from '@seed/common';
 import { StaticService } from './static';
 
 export class ViewService {
@@ -24,16 +23,23 @@ export class ViewService {
 
     let template = '';
 
-    // 如果是包引用+本地开发会出问题，先不管
-    if (ENV === Environments.development) {
+    const location = this.staticService.getPath(viewPath[0]);
+
+    const distLocation = path.join(location, view);
+
+    if (fs.existsSync(distLocation)) {
+      template = await fs.promises.readFile(distLocation, 'utf-8');
+    } else {
+      console.log(viewPath);
+      const devLocation = path.resolve(
+        location,
+        '../',
+        viewPath.splice(1, viewPath.length).join('/'),
+      );
+
       template = await (await this.bootstrap()).transformIndexHtml(
         this.request.url,
-        await fs.promises.readFile(path.join(MODULE_PATH, view), 'utf-8'),
-      );
-    } else {
-      template = await fs.promises.readFile(
-        path.join(this.staticService.getPath(viewPath[0]), view),
-        'utf-8',
+        await fs.promises.readFile(devLocation, 'utf-8'),
       );
     }
 
