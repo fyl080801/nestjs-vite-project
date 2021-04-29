@@ -11,11 +11,11 @@ import {
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ViewService } from '../service/vite';
+import { ViewService } from '../service/view';
 
 @Injectable({ scope: Scope.REQUEST })
 export class ViewInterceptor implements NestInterceptor {
-  constructor(private readonly vite?: ViewService) {}
+  constructor(private readonly view?: ViewService) {}
 
   intercept(
     context: ExecutionContext,
@@ -27,7 +27,7 @@ export class ViewInterceptor implements NestInterceptor {
 
     return next.handle().pipe(
       map(async (data) => {
-        return await this.vite.render(view, data);
+        return await this.view.render(view, data);
       }),
     );
   }

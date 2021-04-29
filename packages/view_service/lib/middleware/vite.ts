@@ -1,7 +1,7 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { IncomingMessage, ServerResponse } from 'node:http';
 import { ENV, Environments } from '@seed/common';
-import { ViewService } from '../service/vite';
+import { ViewService } from '../service/view';
 
 @Injectable()
 export class ViteMiddleware implements NestMiddleware {

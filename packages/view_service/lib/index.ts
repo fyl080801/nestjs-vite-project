@@ -5,7 +5,7 @@ import {
   OnModuleInit,
   RequestMethod,
 } from '@nestjs/common';
-import { ViewService } from './service/vite';
+import { ViewService } from './service/view';
 import { StaticService } from './service/static';
 import { ViteMiddleware } from './middleware/vite';
 import { ENV, Environments } from '@seed/common';
@@ -19,11 +19,11 @@ export * from './decorators/view';
   exports: [ViewService, StaticService],
 })
 export class ViteServiceModule implements NestModule, OnModuleInit {
-  constructor(private readonly vite: ViewService) {}
+  constructor(private readonly view: ViewService) {}
 
   async onModuleInit() {
     if (ENV === Environments.development) {
-      await this.vite.bootstrap();
+      await this.view.bootstrap();
     }
   }
 
