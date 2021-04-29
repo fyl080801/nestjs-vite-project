@@ -30,7 +30,6 @@ export class ViewService {
     if (fs.existsSync(distLocation)) {
       template = await fs.promises.readFile(distLocation, 'utf-8');
     } else {
-      console.log(viewPath);
       const devLocation = path.resolve(
         location,
         '../',
