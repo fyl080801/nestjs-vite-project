@@ -1,6 +1,6 @@
 {
   "name": "@nestseed/app",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "> TODO: description",
   "author": "fengyuanliang3 <fengyuanliang2@jd.com>",
   "homepage": "",
@@ -20,8 +20,8 @@
     "start:dev": "nodemon --inspect dist/lib/index.js"
   },
   "dependencies": {
-    "@nestseed/passport": "^1.1.1",
-    "@nestseed/view_service": "^0.0.2"
+    "@nestseed/passport": "^1.1.2",
+    "@nestseed/view_service": "^0.0.3"
   },
   "gitHead": "a99b839ab6677ffce2e4587aa42008d6be6d0633"
 }
