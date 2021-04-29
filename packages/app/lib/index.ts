@@ -11,6 +11,8 @@ export class AppModule implements OnModuleInit {
   constructor(private readonly staticService: StaticService) {}
 
   onModuleInit() {
-    this.staticService.addStatic('app', __dirname);
+    // 这里的路径和 controller 的会冲突，因此要加上二级目录
+    // 和 vite.config 里 assetsDir 定义的一致
+    this.staticService.addStatic(__dirname, 'app/static');
   }
 }

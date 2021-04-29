@@ -16,11 +16,12 @@ export class StaticService {
     return this.map.get(name);
   }
 
-  addStatic(name: string, root: string) {
-    this.setPath(name, path.resolve(root, '../'));
+  addStatic(root: string, namepath: string) {
+    const paths = namepath.split('/');
+    this.setPath(paths[0], path.resolve(root, '../'));
     this.adapterHost.httpAdapter.useStaticAssets({
-      root: path.resolve(root, `../${name}`),
-      prefix: `/${name}`,
+      root: path.resolve(root, `../${namepath}`),
+      prefix: `/${namepath}`,
       decorateReply: false,
     });
   }

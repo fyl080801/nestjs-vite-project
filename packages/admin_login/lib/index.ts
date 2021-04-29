@@ -11,6 +11,6 @@ export class AdminLoginModule implements OnModuleInit {
   constructor(private readonly staticService: StaticService) {}
 
   onModuleInit() {
-    this.staticService.addStatic('admin_login', __dirname);
+    this.staticService.addStatic(__dirname, 'admin_login/static');
   }
 }
