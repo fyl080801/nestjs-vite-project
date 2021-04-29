@@ -1,7 +1,7 @@
 import { Module, OnModuleInit } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppModule } from '@nestseed/app';
-import { ViteServiceModule } from '@nestseed/view_service';
+import { ViewServiceModule } from '@nestseed/view_service';
 import { AdminLoginModule } from '@nestseed/admin_login';
 import { PassportModule } from '@nestseed/passport';
 import config from './config';
@@ -15,7 +15,7 @@ import { CookieConfig } from './types';
     ConfigModule.forRoot({ isGlobal: true, load: [config] }),
     AppModule,
     PassportModule,
-    ViteServiceModule,
+    ViewServiceModule,
     AdminLoginModule,
   ],
   controllers: [],

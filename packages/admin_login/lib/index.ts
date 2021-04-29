@@ -1,10 +1,10 @@
 import { Module, OnModuleInit } from '@nestjs/common';
 import { HomeController } from './controller/home';
-import { StaticService, ViteServiceModule } from '@nestseed/view_service';
+import { StaticService, ViewServiceModule } from '@nestseed/view_service';
 import { PassportModule } from '@nestseed/passport';
 
 @Module({
-  imports: [PassportModule, ViteServiceModule],
+  imports: [PassportModule, ViewServiceModule],
   controllers: [HomeController],
 })
 export class AdminLoginModule implements OnModuleInit {

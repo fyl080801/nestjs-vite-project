@@ -1,10 +1,10 @@
 import { Module, OnModuleInit } from '@nestjs/common';
 import { HomeController } from './controller/home';
 import { AppController } from './controller/app';
-import { StaticService, ViteServiceModule } from '@nestseed/view_service';
+import { StaticService, ViewServiceModule } from '@nestseed/view_service';
 
 @Module({
-  imports: [ViteServiceModule],
+  imports: [ViewServiceModule],
   controllers: [HomeController, AppController],
 })
 export class AppModule implements OnModuleInit {

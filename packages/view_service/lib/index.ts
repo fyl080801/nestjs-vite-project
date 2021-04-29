@@ -18,7 +18,7 @@ export * from './decorators/view';
   providers: [ViewService, StaticService],
   exports: [ViewService, StaticService],
 })
-export class ViteServiceModule implements NestModule, OnModuleInit {
+export class ViewServiceModule implements NestModule, OnModuleInit {
   constructor(private readonly view: ViewService) {}
 
   async onModuleInit() {
