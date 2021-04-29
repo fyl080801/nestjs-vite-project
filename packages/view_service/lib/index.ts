@@ -8,7 +8,7 @@ import {
 import { ViewService } from './service/view';
 import { StaticService } from './service/static';
 import { ViteMiddleware } from './middleware/vite';
-import { ENV, Environments } from '@seed/common';
+import { ENV, Environments } from '@nestseed/common';
 
 export * from './decorators/view';
 

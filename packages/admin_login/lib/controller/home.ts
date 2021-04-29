@@ -1,6 +1,6 @@
 import { Controller, Post, Request } from '@nestjs/common';
-import { View } from '@seed/view_service';
-import { Authenticated, Authentication, AuthService } from '@seed/passport';
+import { View } from '@nestseed/view_service';
+import { Authenticated, Authentication, AuthService } from '@nestseed/passport';
 
 @Controller('admin')
 export class HomeController {

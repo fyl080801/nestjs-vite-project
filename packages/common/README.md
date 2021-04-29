@@ -1,11 +1,11 @@
-# `@seed/common`
+# `@nestseed/common`
 
 > TODO: description
 
 ## Usage
 
 ```
-const common = require('@seed/common');
+const common = require('@nestseed/common');
 
 // TODO: DEMONSTRATE API
 ```

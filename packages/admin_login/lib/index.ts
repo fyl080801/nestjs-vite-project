@@ -1,7 +1,7 @@
 import { Module, OnModuleInit } from '@nestjs/common';
 import { HomeController } from './controller/home';
-import { StaticService, ViteServiceModule } from '@seed/view_service';
-import { PassportModule } from '@seed/passport';
+import { StaticService, ViteServiceModule } from '@nestseed/view_service';
+import { PassportModule } from '@nestseed/passport';
 
 @Module({
   imports: [PassportModule, ViteServiceModule],

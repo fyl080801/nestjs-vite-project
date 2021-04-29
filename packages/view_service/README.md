@@ -1,11 +1,11 @@
-# `@seed/app`
+# `@nestseed/app`
 
 > TODO: description
 
 ## Usage
 
 ```
-const app = require('@seed/app');
+const app = require('@nestseed/app');
 
 // TODO: DEMONSTRATE API
 ```

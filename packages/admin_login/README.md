@@ -1,11 +1,11 @@
-# `@seed/admin_login`
+# `@nestseed/admin_login`
 
 > TODO: description
 
 ## Usage
 
 ```
-const adminLogin = require('@seed/admin_login');
+const adminLogin = require('@nestseed/admin_login');
 
 // TODO: DEMONSTRATE API
 ```

@@ -105,8 +105,8 @@
       "<rootDir>/packages/"
     ],
     "moduleNameMapper": {
-      "@seed/app/(.*)": "<rootDir>/packages/app/src/$1",
-      "@seed/app": "<rootDir>/packages/app/src"
+      "@nestseed/app/(.*)": "<rootDir>/packages/app/src/$1",
+      "@nestseed/app": "<rootDir>/packages/app/src"
     }
   }
 }

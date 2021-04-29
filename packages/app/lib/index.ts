@@ -1,7 +1,7 @@
 import { Module, OnModuleInit } from '@nestjs/common';
 import { HomeController } from './controller/home';
 import { AppController } from './controller/app';
-import { StaticService, ViteServiceModule } from '@seed/view_service';
+import { StaticService, ViteServiceModule } from '@nestseed/view_service';
 
 @Module({
   imports: [ViteServiceModule],

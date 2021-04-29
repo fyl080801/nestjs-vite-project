@@ -1,9 +1,9 @@
 import { Module, OnModuleInit } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { AppModule } from '@seed/app';
-import { ViteServiceModule } from '@seed/view_service';
-import { AdminLoginModule } from '@seed/admin_login';
-import { PassportModule } from '@seed/passport';
+import { AppModule } from '@nestseed/app';
+import { ViteServiceModule } from '@nestseed/view_service';
+import { AdminLoginModule } from '@nestseed/admin_login';
+import { PassportModule } from '@nestseed/passport';
 import config from './config';
 import { HttpAdapterHost } from '@nestjs/core';
 import cookie from 'fastify-cookie';

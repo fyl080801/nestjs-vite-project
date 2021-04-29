@@ -1,11 +1,11 @@
-# `@seed/passport`
+# `@nestseed/passport`
 
 > TODO: description
 
 ## Usage
 
 ```
-const passport = require('@seed/passport');
+const passport = require('@nestseed/passport');
 
 // TODO: DEMONSTRATE API
 ```
