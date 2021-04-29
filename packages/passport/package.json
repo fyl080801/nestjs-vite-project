@@ -32,6 +32,7 @@
     "@nestjs/jwt": "^7.2.0",
     "@nestjs/passport": "^7.1.5",
     "passport-cookie": "^1.0.9",
+    "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0"
   },
   "gitHead": "a99b839ab6677ffce2e4587aa42008d6be6d0633"
