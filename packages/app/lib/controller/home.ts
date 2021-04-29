@@ -1,5 +1,5 @@
 import { Controller, Request } from '@nestjs/common';
-import { View } from '@seed/vite_service';
+import { View } from '@seed/view_service';
 import { Authentication } from '@seed/passport';
 
 @Controller()

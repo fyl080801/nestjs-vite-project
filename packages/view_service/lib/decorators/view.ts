@@ -11,11 +11,11 @@ import {
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ViteService } from '../service/vite';
+import { ViewService } from '../service/vite';
 
 @Injectable({ scope: Scope.REQUEST })
 export class ViewInterceptor implements NestInterceptor {
-  constructor(private readonly vite?: ViteService) {}
+  constructor(private readonly vite?: ViewService) {}
 
   intercept(
     context: ExecutionContext,

@@ -1,7 +1,7 @@
 import { Module, OnModuleInit } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppModule } from '@seed/app';
-import { ViteServiceModule } from '@seed/vite_service';
+import { ViteServiceModule } from '@seed/view_service';
 import { AdminLoginModule } from '@seed/admin_login';
 import { PassportModule } from '@seed/passport';
 import config from './config';

@@ -11,7 +11,7 @@
   "scripts": {
     "prebuild": "lerna run clean --parallel && rimraf dist",
     "build": "lerna run build --stream && nest build",
-    "watch": "lerna run watch --parallel",
+    "watch": "lerna run clean --parallel && lerna run watch --parallel",
     "start": "NODE_ENV=production node dist/main",
     "start:dev": "lerna run start:dev & NODE_ENV=development nest start --watch",
     "clean": "lerna run clean --parallel && rimraf dist",
@@ -81,7 +81,7 @@
     "vite-plugin-style-import": "^0.10.0",
     "vue": "^3.0.11",
     "vue-router": "^4.0.6",
-    "webpack": "^5.36.0"
+    "webpack": "^5.36.1"
   },
   "jest": {
     "moduleFileExtensions": [

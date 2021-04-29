@@ -7,7 +7,7 @@ import { renderString } from 'nunjucks';
 import { ENV, Environments, MODULE_PATH } from '@seed/common';
 import { StaticService } from './static';
 
-export class ViteService {
+export class ViewService {
   private server: ViteDevServer;
 
   constructor(

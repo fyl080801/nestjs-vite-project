@@ -1,11 +1,11 @@
-# `@seed/vite_service`
+# `@seed/view_service`
 
 > TODO: description
 
 ## Usage
 
 ```
-const viteService = require('@seed/vite_service');
+const viewService = require('@seed/view_service');
 
 // TODO: DEMONSTRATE API
 ```
