@@ -4,7 +4,7 @@
   "description": "> TODO: description",
   "author": "fengyuanliang3 <fengyuanliang2@jd.com>",
   "homepage": "",
-  "license": "ISC",
+  "license": "MIT",
   "main": "dist/lib/index.js",
   "types": "dist/lib/index.d.ts",
   "files": [
@@ -19,5 +19,6 @@
   "dependencies": {
     "@nestseed/passport": "^1.1.0",
     "@nestseed/view_service": "^0.0.1"
-  }
+  },
+  "gitHead": "49c0c138218339b56de5b07a1f9b2ce467f7e325"
 }

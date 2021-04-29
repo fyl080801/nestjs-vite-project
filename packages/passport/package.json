@@ -4,7 +4,7 @@
   "description": "> TODO: description",
   "author": "fengyuanliang3 <fengyuanliang2@jd.com>",
   "homepage": "https://github.com/fyl080801/nest-test#readme",
-  "license": "ISC",
+  "license": "MIT",
   "main": "dist/lib/index.js",
   "types": "dist/lib/index.d.ts",
   "files": [
@@ -30,5 +30,6 @@
     "@nestjs/passport": "^7.1.5",
     "passport-cookie": "^1.0.9",
     "passport-local": "^1.0.0"
-  }
+  },
+  "gitHead": "49c0c138218339b56de5b07a1f9b2ce467f7e325"
 }
