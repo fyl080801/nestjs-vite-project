@@ -1,27 +1,34 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 import RightPanel from '../components/RightPanel/index.vue';
-import { AppMain, Navbar, Settings, Sidebar, TagsView } from './components';
+import {
+  AppMain,
+  Navbar,
+  Settings,
+  // Sidebar,
+  // TagsView,
+} from './components';
 import { useResize } from './mixin/ResizeHandler';
-import { useStore } from 'vuex';
+import { useSettingsStore, useAppStore, DeviceType } from '../store';
 
-const { state, dispatch } = useStore();
+const { state: appState, closeSideBar } = useAppStore();
+const { state: settingsState } = useSettingsStore();
 
-const device = computed(() => state.app.device);
-const showSettings = computed(() => state.settings.showSettings);
-const needTagsView = computed(() => state.settings.tagsView);
-const fixedHeader = computed(() => state.settings.fixedHeader);
+const device = computed(() => appState.device);
+const showSettings = computed(() => settingsState.showSettings);
+const needTagsView = computed(() => settingsState.showTagsView);
+const fixedHeader = computed(() => settingsState.fixedHeader);
 const classObj = computed(() => {
   return {
-    hideSidebar: !state.app.sidebar.opened,
-    openSidebar: state.app.sidebar.opened,
-    withoutAnimation: state.app.sidebar.withoutAnimation,
-    mobile: device.value === 'mobile',
+    hideSidebar: !appState.sidebar.opened,
+    openSidebar: appState.sidebar.opened,
+    withoutAnimation: appState.sidebar.withoutAnimation,
+    mobile: device.value === DeviceType.Mobile,
   };
 });
 
 const handleClickOutside = () => {
-  dispatch('app/closeSideBar', { withoutAnimation: false });
+  closeSideBar(false);
 };
 
 useResize();
@@ -30,20 +37,20 @@ useResize();
 <template>
   <div :class="classObj" class="app-wrapper">
     <div
-      v-if="device === 'mobile' && state.app.sidebar.opened"
+      v-if="device === DeviceType.Mobile && appState.sidebar.opened"
       class="drawer-bg"
       @click="handleClickOutside"
     />
-    <sidebar class="sidebar-container" />
+    <!-- <Sidebar class="sidebar-container" /> -->
     <div :class="{ hasTagsView: needTagsView }" class="main-container">
       <div :class="{ 'fixed-header': fixedHeader }">
-        <navbar />
-        <tags-view v-if="needTagsView" />
+        <Navbar />
+        <!-- <TagsView v-if="needTagsView" /> -->
       </div>
-      <app-main />
-      <right-panel v-if="showSettings">
-        <settings />
-      </right-panel>
+      <AppMain />
+      <RightPanel v-if="showSettings">
+        <Settings />
+      </RightPanel>
     </div>
   </div>
 </template>

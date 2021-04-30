@@ -1,57 +1,70 @@
 <template>
-  <el-dropdown trigger="click" @command="handleSetSize">
+  <ElDropdown trigger="click" @command="handleSetSize">
     <div>
       <svg-icon class-name="size-icon" icon-class="size" />
     </div>
-    <el-dropdown-menu slot="dropdown">
-      <el-dropdown-item v-for="item of sizeOptions" :key="item.value" :disabled="size===item.value" :command="item.value">
-        {{
-          item.label }}
-      </el-dropdown-item>
-    </el-dropdown-menu>
-  </el-dropdown>
+    <template #dropdown>
+      <ElDropdownMenu>
+        <ElDropdownItem
+          v-for="item of sizeOptions"
+          :key="item.value"
+          :disabled="size === item.value"
+          :command="item.value"
+        >
+          {{ item.label }}
+        </ElDropdownItem>
+      </ElDropdownMenu>
+    </template>
+  </ElDropdown>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      sizeOptions: [
-        { label: 'Default', value: 'default' },
-        { label: 'Medium', value: 'medium' },
-        { label: 'Small', value: 'small' },
-        { label: 'Mini', value: 'mini' }
-      ]
-    }
-  },
-  computed: {
-    size() {
-      return this.$store.getters.size
-    }
-  },
-  methods: {
-    handleSetSize(size) {
-      this.$ELEMENT.size = size
-      this.$store.dispatch('app/setSize', size)
-      this.refreshView()
-      this.$message({
-        message: 'Switch Size Success',
-        type: 'success'
-      })
-    },
-    refreshView() {
-      // In order to make the cached page re-rendered
-      this.$store.dispatch('tagsView/delAllCachedViews', this.$route)
+<script lang="ts" setup>
+import { computed, nextTick, getCurrentInstance } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import {
+  ElMessage,
+  ElDropdown,
+  ElDropdownItem,
+  ElDropdownMenu,
+} from 'element-plus';
+import { useAppStore, useTagsViewStore } from '../../store';
 
-      const { fullPath } = this.$route
+const { proxy } = getCurrentInstance();
+const { state, setSize } = useAppStore();
+const { delAllCachedViews } = useTagsViewStore();
+const route = useRoute();
+const router = useRouter();
+const sizeOptions = [
+  { label: 'Default', value: 'default' },
+  { label: 'Medium', value: 'medium' },
+  { label: 'Small', value: 'small' },
+  { label: 'Mini', value: 'mini' },
+];
 
-      this.$nextTick(() => {
-        this.$router.replace({
-          path: '/redirect' + fullPath
-        })
-      })
-    }
-  }
+const size = computed(() => {
+  return state.size;
+});
 
-}
+const handleSetSize = (size) => {
+  proxy['$ELEMENT'].size = size;
+  setSize(size);
+  refreshView();
+  ElMessage.success({
+    message: 'Switch Size Success',
+    type: 'success',
+  });
+};
+
+const refreshView = () => {
+  // In order to make the cached page re-rendered
+  delAllCachedViews();
+
+  const { fullPath } = route;
+
+  nextTick(() => {
+    router.replace({
+      path: '/redirect' + fullPath,
+    });
+  });
+};
 </script>

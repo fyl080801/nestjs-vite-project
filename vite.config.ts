@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import legacy from '@vitejs/plugin-legacy';
+// import svg from 'vite-plugin-svg-sprite';
 import { MODULE_PATH } from '@nestseed/common';
 
 export default defineConfig({

@@ -1,14 +1,14 @@
 import { App } from 'vue';
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 
 /* Layout */
 import Layout from '../layout/index.vue';
 
-export const constantRoutes = [
+export const constantRoutes: RouteRecordRaw[] = [
   {
     path: '/redirect',
     component: Layout,
-    hidden: true,
+    meta: { hidden: true },
     children: [
       {
         path: '/redirect/:path(.*)',
@@ -16,7 +16,26 @@ export const constantRoutes = [
       },
     ],
   },
+  {
+    path: '/',
+    component: Layout,
+    redirect: '/dashboard',
+    children: [
+      {
+        path: 'dashboard',
+        component: () => import('../views/dashboard/index.vue'),
+        name: 'Dashboard',
+        meta: {
+          title: 'dashboard',
+          icon: 'dashboard',
+          affix: true,
+        },
+      },
+    ],
+  },
 ];
+
+export const asyncRoutes: RouteRecordRaw[] = [];
 
 const create = () =>
   createRouter({
@@ -27,11 +46,15 @@ const create = () =>
 
 const router = create();
 
-// // Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
-// export const reset = () => {
-//   const newRouter = create();
-//   router.matcher = newRouter.matcher; // reset router
-// };
+// Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
+export const resetRouter = () => {
+  const newRouter = create();
+  const routes = router.getRoutes();
+  routes.forEach((r) => router.removeRoute(r.name));
+  const newRoutes = newRouter.getRoutes();
+  newRoutes.forEach((r) => router.addRoute(r));
+  // router.matcher = newRouter.matcher; // reset router
+};
 
 export const useRouter = (app: App<Element>) => {
   app.use(router);

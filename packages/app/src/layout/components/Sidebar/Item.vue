@@ -1,37 +1,48 @@
-<script lang="tsx">
-import { defineComponent } from 'vue';
-export default defineComponent({
-  name: 'MenuItem',
-  functional: true,
-  props: {
-    icon: {
-      type: String,
-      default: '',
-    },
-    title: {
-      type: String,
-      default: '',
-    },
+<script lang="ts" setup>
+import { defineProps } from 'vue';
+
+const { icon, title } = defineProps({
+  icon: {
+    type: String,
+    default: '',
   },
-  render(h, context) {
-    const { icon, title } = context.props;
-    const vnodes = [];
-
-    if (icon) {
-      if (icon.includes('el-icon')) {
-        vnodes.push(<i class={[icon, 'sub-el-icon']} />);
-      } else {
-        vnodes.push(<svg-icon icon-class={icon} />);
-      }
-    }
-
-    if (title) {
-      vnodes.push(<span slot="title">{title}</span>);
-    }
-    return vnodes;
+  title: {
+    type: String,
+    default: '',
   },
 });
+
+// export default defineComponent({
+//   name: 'MenuItem',
+//   functional: true,
+//   props: {
+
+//   },
+//   render(h, context) {
+//     const { icon, title } = context.props;
+//     const vnodes = [];
+
+//     if (icon) {
+//       if (icon.includes('el-icon')) {
+//         vnodes.push();
+//       } else {
+//         vnodes.push();
+//       }
+//     }
+
+//     if (title) {
+//       vnodes.push();
+//     }
+//     return vnodes;
+//   },
+// });
 </script>
+
+<template>
+  <i v-if="icon && icon.includes('el-icon')" :class="[icon, 'sub-el-icon']" />
+  <svg-icon v-if="icon && !icon.includes('el-icon')" :icon-class="icon" />
+  <span v-if="title" slot="title">{{ title }}</span>
+</template>
 
 <style scoped>
 .sub-el-icon {

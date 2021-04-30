@@ -7,7 +7,7 @@ import {
   onMounted,
   computed,
 } from 'vue';
-import { useStore } from 'vuex';
+import { useSettingsStore } from '../../store';
 import { addClass, removeClass } from '../../utils';
 
 const { clickNotClose, buttonTop } = defineProps({
@@ -20,13 +20,12 @@ const { clickNotClose, buttonTop } = defineProps({
     type: Number,
   },
 });
-
-const { state } = useStore();
+const { state } = useSettingsStore();
 
 const show = ref(false);
 const rightPanel = ref();
 const theme = computed(() => {
-  return state.settings.theme;
+  return state.theme;
 });
 
 const addEventClick = () => {

@@ -5,9 +5,9 @@ export const useSvgIcon = (app: App<Element>) => {
   app.component('svg-icon', SvgIcon);
 };
 
-const req = import.meta.globEager('./svg/**/*.svg');
+const req = import.meta.glob('./svg/**/*.svg');
 
 const requireAll = (requireContext) =>
-  Object.keys(requireContext).map(requireContext);
-
+  Object.keys(requireContext).map((key) => requireContext[key]);
+// console.log(req);
 requireAll(req);

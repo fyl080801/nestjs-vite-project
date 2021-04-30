@@ -3,6 +3,7 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
+    "jsx": "react",
     "moduleResolution": "node",
     "isolatedModules": true,
     "importHelpers": true,

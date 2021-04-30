@@ -1,36 +1,25 @@
 <script lang="ts" setup>
+import { useSettingsStore } from '../../../store';
 import { computed } from 'vue';
-import { useStore } from 'vuex';
 import ThemePicker from '../../../components/ThemePicker/index.vue';
+import { ElSwitch } from 'element-plus';
 
-const { state, dispatch } = useStore();
-const fixedHeader = computed(() => state.settings.fixedHeader);
-const tagsView = computed(() => state.settings.tagsView);
-const sidebarLogo = computed(() => state.settings.sidebarLogo);
+const { state, changeSetting } = useSettingsStore();
+const fixedHeader = computed(() => state.fixedHeader);
+const tagsView = computed(() => state.showTagsView);
+const sidebarLogo = computed(() => state.showSidebarLogo);
 
 const updateFixedHeader = (val) => {
-  dispatch('settings/changeSetting', {
-    key: 'fixedHeader',
-    value: val,
-  });
+  changeSetting('fixedHeader', val);
 };
 const updateTagsView = (val) => {
-  dispatch('settings/changeSetting', {
-    key: 'tagsView',
-    value: val,
-  });
+  changeSetting('showTagsView', val);
 };
 const updateSidebarLogo = (val) => {
-  dispatch('settings/changeSetting', {
-    key: 'sidebarLogo',
-    value: val,
-  });
+  changeSetting('showSidebarLogo', val);
 };
 const themeChange = (val) => {
-  dispatch('settings/changeSetting', {
-    key: 'theme',
-    value: val,
-  });
+  changeSetting('theme', val);
 };
 </script>
 
@@ -41,7 +30,7 @@ const themeChange = (val) => {
 
       <div class="drawer-item">
         <span>Theme Color</span>
-        <theme-picker
+        <ThemePicker
           style="float: right; height: 26px; margin: -3px 8px 0 0"
           @change="themeChange"
         />
@@ -49,7 +38,7 @@ const themeChange = (val) => {
 
       <div class="drawer-item">
         <span>Open Tags-View</span>
-        <el-switch
+        <ElSwitch
           :value="tagsView"
           @input="updateTagsView"
           class="drawer-switch"
@@ -58,7 +47,7 @@ const themeChange = (val) => {
 
       <div class="drawer-item">
         <span>Fixed Header</span>
-        <el-switch
+        <ElSwitch
           :value="fixedHeader"
           @input="updateFixedHeader"
           class="drawer-switch"
@@ -67,7 +56,7 @@ const themeChange = (val) => {
 
       <div class="drawer-item">
         <span>Sidebar Logo</span>
-        <el-switch
+        <ElSwitch
           :value="sidebarLogo"
           @input="updateSidebarLogo"
           class="drawer-switch"

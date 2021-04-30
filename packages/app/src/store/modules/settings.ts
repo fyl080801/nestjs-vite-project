@@ -1,34 +1,45 @@
 import variables from '../../styles/element-variables.scss';
 import defaultSettings from '../../settings';
+import { reactive, readonly } from 'vue';
 
-const { showSettings, tagsView, fixedHeader, sidebarLogo } = defaultSettings;
+export interface ISettingsState {
+  theme: string;
+  fixedHeader: boolean;
+  showSettings: boolean;
+  showTagsView: boolean;
+  showSidebarLogo: boolean;
+  sidebarTextTheme: boolean;
+}
 
-const state = {
-  theme: variables.theme,
-  showSettings: showSettings,
-  tagsView: tagsView,
-  fixedHeader: fixedHeader,
-  sidebarLogo: sidebarLogo,
+const changeSetting = (state: ISettingsState) => (
+  key: string,
+  value: string | boolean,
+) => {
+  if (state.hasOwnProperty(key)) {
+    state[key] = value;
+  }
 };
 
-const mutations = {
-  CHANGE_SETTING: (state, { key, value }) => {
-    // eslint-disable-next-line no-prototype-builtins
-    if (state.hasOwnProperty(key)) {
-      state[key] = value;
-    }
-  },
+const createState = (): ISettingsState => {
+  return reactive({
+    fixedHeader: defaultSettings.fixedHeader,
+    showSettings: defaultSettings.showSettings,
+    showSidebarLogo: defaultSettings.showSidebarLogo,
+    showTagsView: defaultSettings.showTagsView,
+    sidebarTextTheme: defaultSettings.sidebarTextTheme,
+    theme: variables.theme,
+  });
 };
 
-const actions = {
-  changeSetting({ commit }, data) {
-    commit('CHANGE_SETTING', data);
-  },
+const createActions = (state) => {
+  return {
+    changeSetting: changeSetting(state),
+  };
 };
 
-export default {
-  namespaced: true,
-  state,
-  mutations,
-  actions,
+const state = createState();
+const actions = createActions(state);
+
+export const useSettingsStore = () => {
+  return readonly({ state, ...actions });
 };

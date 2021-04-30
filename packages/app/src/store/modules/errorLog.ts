@@ -1,28 +1,38 @@
-const state = {
-  logs: [],
+import { reactive, readonly } from 'vue';
+
+interface IErrorLog {
+  err: Error;
+  vm: any;
+  info: string;
+  url: string;
+}
+
+export interface IErrorLogState {
+  logs: IErrorLog[];
+}
+
+const addErrorLog = (state: IErrorLogState) => (log: IErrorLog) => {
+  state.logs.push(log);
 };
 
-const mutations = {
-  ADD_ERROR_LOG: (state, log) => {
-    state.logs.push(log);
-  },
-  CLEAR_ERROR_LOG: (state) => {
-    state.logs.splice(0);
-  },
+const clearErrorLog = (state: IErrorLogState) => () => {
+  state.logs.splice(0);
 };
 
-const actions = {
-  addErrorLog({ commit }, log) {
-    commit('ADD_ERROR_LOG', log);
-  },
-  clearErrorLog({ commit }) {
-    commit('CLEAR_ERROR_LOG');
-  },
+const createState = (): IErrorLogState => {
+  return reactive({ logs: [] });
 };
 
-export default {
-  namespaced: true,
-  state,
-  mutations,
-  actions,
+const createActions = (state: IErrorLogState) => {
+  return {
+    addErrorLog: addErrorLog(state),
+    clearErrorLog: clearErrorLog(state),
+  };
+};
+
+const state = createState();
+const actions = createActions(state);
+
+export const useErrorLogStore = () => {
+  return readonly({ state, ...actions });
 };

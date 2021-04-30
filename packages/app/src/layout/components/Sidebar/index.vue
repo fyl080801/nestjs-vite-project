@@ -1,13 +1,22 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { useStore } from 'vuex';
+// import { useStore } from 'vuex';
 import { useRoute } from 'vue-router';
 import Logo from './Logo.vue';
 import SidebarItem from './SidebarItem.vue';
 import variables from '../../../styles/variables.scss';
+import { ElScrollbar, ElMenu } from 'element-plus';
+import {
+  useSettingsStore,
+  useAppStore,
+  usePermissionStore,
+} from '../../../store';
+
+const { state: settingsState } = useSettingsStore();
+const { state: appState } = useAppStore();
+const { state: permissionState } = usePermissionStore();
 
 const route = useRoute();
-const { state } = useStore();
 const activeMenu = computed(() => {
   const { meta, path } = route;
   // if set path, the sidebar will highlight the path you set
@@ -16,16 +25,16 @@ const activeMenu = computed(() => {
   }
   return path;
 });
-const showLogo = computed(() => state.settings.sidebarLogo);
-const isCollapse = computed(() => !state.app.sidebar.opened);
-const permission_routes = computed(() => state.permission.routes);
+const showLogo = computed(() => settingsState.showSidebarLogo);
+const isCollapse = computed(() => !appState.sidebar.opened);
+const permission_routes = computed(() => permissionState.routes);
 </script>
 
 <template>
   <div :class="{ 'has-logo': showLogo }">
-    <logo v-if="showLogo" :collapse="isCollapse" />
-    <el-scrollbar wrap-class="scrollbar-wrapper">
-      <el-menu
+    <Logo v-if="showLogo" :collapse="isCollapse" />
+    <ElScrollbar wrap-class="scrollbar-wrapper">
+      <ElMenu
         :default-active="activeMenu"
         :collapse="isCollapse"
         :background-color="variables['menuBg']"
@@ -35,13 +44,13 @@ const permission_routes = computed(() => state.permission.routes);
         :collapse-transition="false"
         mode="vertical"
       >
-        <sidebar-item
+        <SidebarItem
           v-for="route in permission_routes"
           :key="route.path"
           :item="route"
           :base-path="route.path"
         />
-      </el-menu>
-    </el-scrollbar>
+      </ElMenu>
+    </ElScrollbar>
   </div>
 </template>

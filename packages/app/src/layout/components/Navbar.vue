@@ -1,56 +1,56 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { useStore } from 'vuex';
-import { useRouter, useRoute } from 'vue-router';
 import Breadcrumb from '../../components/Breadcrumb/index.vue';
 import Hamburger from '../../components/Hamburger/index.vue';
 import ErrorLog from '../../components/ErrorLog/index.vue';
-import Screenfull from '../../components/Screenfull/index.vue';
+// import Screenfull from '../../components/Screenfull/index.vue';
 import SizeSelect from '../../components/SizeSelect/index.vue';
 // import Search from '../../components/HeaderSearch';
+import { useAppStore, useUserStore, DeviceType } from '../../store';
+import {
+  ElTooltip,
+  ElDropdown,
+  ElDropdownMenu,
+  ElDropdownItem,
+} from 'element-plus';
 
-const router = useRouter();
-const route = useRoute();
-const { state, dispatch } = useStore();
-const sidebar = computed(() => state.app.sidebar);
-const avatar = computed(() => state.user.avatar);
-const device = computed(() => state.app.device);
-
-const toggleSideBar = () => {
-  dispatch('app/toggleSideBar');
-};
+const { state: appState, toggleSideBar } = useAppStore();
+const { state: userState, userLogout } = useUserStore();
+const sidebar = computed(() => appState.sidebar);
+const avatar = computed(() => userState.avatar);
+const device = computed(() => appState.device);
 
 const logout = async () => {
-  await dispatch('user/logout');
-  router.push(`/login?redirect=${route.fullPath}`);
+  await userLogout();
+  window.location.reload();
 };
 </script>
 
 <template>
   <div class="navbar">
-    <hamburger
+    <Hamburger
       id="hamburger-container"
       :is-active="sidebar.opened"
       class="hamburger-container"
       @toggleClick="toggleSideBar"
     />
 
-    <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+    <Breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
 
     <div class="right-menu">
-      <template v-if="device !== 'mobile'">
+      <template v-if="device !== DeviceType.Mobile">
         <!-- <search id="header-search" class="right-menu-item" /> -->
 
-        <error-log class="errLog-container right-menu-item hover-effect" />
+        <ErrorLog class="errLog-container right-menu-item hover-effect" />
 
-        <screenfull id="screenfull" class="right-menu-item hover-effect" />
+        <!-- <Screenfull id="screenfull" class="right-menu-item hover-effect" /> -->
 
-        <el-tooltip content="Global Size" effect="dark" placement="bottom">
-          <size-select id="size-select" class="right-menu-item hover-effect" />
-        </el-tooltip>
+        <ElTooltip content="Global Size" effect="dark" placement="bottom">
+          <SizeSelect id="size-select" class="right-menu-item hover-effect" />
+        </ElTooltip>
       </template>
 
-      <el-dropdown
+      <ElDropdown
         class="avatar-container right-menu-item hover-effect"
         trigger="click"
       >
@@ -58,30 +58,32 @@ const logout = async () => {
           <img :src="avatar + '?imageView2/1/w/80/h/80'" class="user-avatar" />
           <i class="el-icon-caret-bottom" />
         </div>
-        <el-dropdown-menu slot="dropdown">
-          <router-link to="/profile/index">
-            <el-dropdown-item>Profile</el-dropdown-item>
-          </router-link>
-          <router-link to="/">
-            <el-dropdown-item>Dashboard</el-dropdown-item>
-          </router-link>
-          <a
-            target="_blank"
-            href="https://github.com/PanJiaChen/vue-element-admin/"
-          >
-            <el-dropdown-item>Github</el-dropdown-item>
-          </a>
-          <a
-            target="_blank"
-            href="https://panjiachen.github.io/vue-element-admin-site/#/"
-          >
-            <el-dropdown-item>Docs</el-dropdown-item>
-          </a>
-          <el-dropdown-item divided @click.native="logout">
-            <span style="display: block">Log Out</span>
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
+        <template #dropdown>
+          <ElDropdownMenu>
+            <router-link to="/profile/index">
+              <ElDropdownItem>Profile</ElDropdownItem>
+            </router-link>
+            <router-link to="/">
+              <ElDropdownItem>Dashboard</ElDropdownItem>
+            </router-link>
+            <a
+              target="_blank"
+              href="https://github.com/PanJiaChen/vue-element-admin/"
+            >
+              <ElDropdownItem>Github</ElDropdownItem>
+            </a>
+            <a
+              target="_blank"
+              href="https://panjiachen.github.io/vue-element-admin-site/#/"
+            >
+              <ElDropdownItem>Docs</ElDropdownItem>
+            </a>
+            <ElDropdownItem divided @click.native="logout">
+              <span style="display: block">Log Out</span>
+            </ElDropdownItem>
+          </ElDropdownMenu>
+        </template>
+      </ElDropdown>
     </div>
   </div>
 </template>

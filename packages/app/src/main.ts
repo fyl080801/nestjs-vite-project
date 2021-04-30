@@ -1,11 +1,13 @@
 import App from './App.vue';
 import { createApp } from 'vue';
 import { useRouter } from './router';
-import { useStore } from './store';
+import { useSvgIcon } from './icons';
+
+import 'normalize.css';
 
 const app = createApp(App);
 
-useStore(app);
 useRouter(app);
+useSvgIcon(app);
 
 app.mount('#app');

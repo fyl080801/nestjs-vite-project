@@ -3,11 +3,11 @@ const WIDTH = 992; // refer to Bootstrap's responsive design
 
 import { watch, onBeforeMount, onBeforeUnmount, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
-import { useStore } from 'vuex';
+import { useAppStore, DeviceType } from '../../store';
 
 export const useResize = () => {
   const route = useRoute();
-  const { state, dispatch } = useStore();
+  const { state, toggleDevice, closeSideBar } = useAppStore();
 
   const $_isMobile = () => {
     const rect = body.getBoundingClientRect();
@@ -17,10 +17,10 @@ export const useResize = () => {
   const $_resizeHandler = () => {
     if (!document.hidden) {
       const isMobile = $_isMobile();
-      dispatch('app/toggleDevice', isMobile ? 'mobile' : 'desktop');
+      toggleDevice(isMobile ? DeviceType.Mobile : DeviceType.Desktop);
 
       if (isMobile) {
-        dispatch('app/closeSideBar', { withoutAnimation: true });
+        closeSideBar(true);
       }
     }
   };
@@ -28,8 +28,8 @@ export const useResize = () => {
   watch(
     () => route,
     () => {
-      if (state.app.device === 'mobile' && state.app.sidebar.opened) {
-        dispatch('app/closeSideBar', { withoutAnimation: false });
+      if (state.device === DeviceType.Mobile && state.sidebar.opened) {
+        closeSideBar(false);
       }
     },
   );
@@ -46,8 +46,8 @@ export const useResize = () => {
     const isMobile = $_isMobile();
 
     if (isMobile) {
-      dispatch('app/toggleDevice', 'mobile');
-      dispatch('app/closeSideBar', { withoutAnimation: true });
+      toggleDevice(DeviceType.Mobile);
+      closeSideBar(true);
     }
   });
 };

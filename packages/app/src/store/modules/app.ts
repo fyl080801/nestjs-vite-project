@@ -1,58 +1,73 @@
 import Cookies from 'js-cookie';
+import { reactive, readonly } from 'vue';
 
-const state = {
+export enum DeviceType {
+  Mobile,
+  Desktop,
+}
+
+export interface IAppState {
+  device: DeviceType;
+  sidebar: {
+    opened: boolean;
+    withoutAnimation: boolean;
+  };
+  language?: string;
+  size: string;
+}
+
+const init: IAppState = {
   sidebar: {
     opened: Cookies.get('sidebarStatus')
       ? !!+Cookies.get('sidebarStatus')
       : true,
     withoutAnimation: false,
   },
-  device: 'desktop',
+  device: DeviceType.Desktop,
   size: Cookies.get('size') || 'medium',
 };
 
-const mutations = {
-  TOGGLE_SIDEBAR: (state) => {
-    state.sidebar.opened = !state.sidebar.opened;
-    state.sidebar.withoutAnimation = false;
-    if (state.sidebar.opened) {
-      Cookies.set('sidebarStatus', 1);
-    } else {
-      Cookies.set('sidebarStatus', 0);
-    }
-  },
-  CLOSE_SIDEBAR: (state, withoutAnimation) => {
-    Cookies.set('sidebarStatus', 0);
-    state.sidebar.opened = false;
-    state.sidebar.withoutAnimation = withoutAnimation;
-  },
-  TOGGLE_DEVICE: (state, device) => {
-    state.device = device;
-  },
-  SET_SIZE: (state, size) => {
-    state.size = size;
-    Cookies.set('size', size);
-  },
+const toggleSideBar = (state: IAppState) => () => {
+  state.sidebar.opened = !state.sidebar.opened;
+  state.sidebar.withoutAnimation = false;
+  if (state.sidebar.opened) {
+    Cookies.set('sidebarStatus', '1');
+  } else {
+    Cookies.set('sidebarStatus', '0');
+  }
 };
 
-const actions = {
-  toggleSideBar({ commit }) {
-    commit('TOGGLE_SIDEBAR');
-  },
-  closeSideBar({ commit }, { withoutAnimation }) {
-    commit('CLOSE_SIDEBAR', withoutAnimation);
-  },
-  toggleDevice({ commit }, device) {
-    commit('TOGGLE_DEVICE', device);
-  },
-  setSize({ commit }, size) {
-    commit('SET_SIZE', size);
-  },
+const closeSideBar = (state: IAppState) => (withoutAnimation: boolean) => {
+  Cookies.set('sidebarStatus', '0');
+  state.sidebar.opened = false;
+  state.sidebar.withoutAnimation = withoutAnimation;
 };
 
-export default {
-  namespaced: true,
-  state,
-  mutations,
-  actions,
+const toggleDevice = (state: IAppState) => (device: DeviceType) => {
+  state.device = device;
+};
+
+const setSize = (state: IAppState) => (size: string) => {
+  state.size = size;
+  Cookies.set('size', size);
+};
+
+const createState = (): IAppState => {
+  return reactive(init);
+};
+
+const createActions = (state) => {
+  return {
+    toggleSideBar: toggleSideBar(state),
+    closeSideBar: closeSideBar(state),
+    toggleDevice: toggleDevice(state),
+    setSize: setSize(state),
+  };
+};
+
+const state = createState();
+const actions = createActions(state);
+
+export const useAppStore = () => {
+  return readonly({ state, ...actions });
 };

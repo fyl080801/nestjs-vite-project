@@ -1,21 +1,28 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { useStore } from 'vuex';
 import { useRoute } from 'vue-router';
+import { useTagsViewStore } from '../../store';
 
 const route = useRoute();
-const { state } = useStore();
-const cachedViews = computed(() => state.tagsView.cachedViews);
+const { state } = useTagsViewStore();
+const cachedViews = computed(() => state.cachedViews as any);
 const key = computed(() => route.path);
 </script>
 
 <template>
   <section class="app-main">
-    <transition name="fade-transform" mode="out-in">
+    <router-view :key="key" v-slot="{ Component }">
+      <transition name="fade-transform" mode="out-in">
+        <keep-alive :include="cachedViews">
+          <component :is="Component" />
+        </keep-alive>
+      </transition>
+    </router-view>
+    <!-- <transition name="fade-transform" mode="out-in">
       <keep-alive :include="cachedViews">
         <router-view :key="key" />
       </keep-alive>
-    </transition>
+    </transition> -->
   </section>
 </template>
 
