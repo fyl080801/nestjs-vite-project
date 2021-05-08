@@ -1,4 +1,4 @@
-import { Inject, Request } from '@nestjs/common';
+import { Inject, Injectable, Request, Scope } from '@nestjs/common';
 import { createServer, ViteDevServer } from 'vite';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -6,6 +6,9 @@ import { REQUEST } from '@nestjs/core';
 import { renderString } from 'nunjucks';
 import { StaticService } from './static';
 
+let server: ViteDevServer = null;
+
+@Injectable({ scope: Scope.REQUEST })
 export class ViewService {
   private server: ViteDevServer;
 
@@ -15,7 +18,15 @@ export class ViewService {
   ) {}
 
   async bootstrap() {
-    return (this.server = this.server || (await createServer()));
+    if (!server) {
+      server = await createServer();
+    }
+    return server;
+  }
+
+  async destroy() {
+    await server.close();
+    server = null;
   }
 
   async render(view: string, data?: any) {

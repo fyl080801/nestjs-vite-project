@@ -3,6 +3,7 @@ import {
   Module,
   NestModule,
   OnModuleInit,
+  OnModuleDestroy,
   RequestMethod,
 } from '@nestjs/common';
 import { ViewService } from './service/view';
@@ -18,13 +19,18 @@ export * from './decorators/view';
   providers: [ViewService, StaticService],
   exports: [ViewService, StaticService],
 })
-export class ViewServiceModule implements NestModule, OnModuleInit {
+export class ViewServiceModule
+  implements NestModule, OnModuleInit, OnModuleDestroy {
   constructor(private readonly view: ViewService) {}
 
   async onModuleInit() {
     if (ENV === Environments.development) {
       await this.view.bootstrap();
     }
+  }
+
+  async onModuleDestroy() {
+    await this.view.destroy();
   }
 
   async configure(consumer: MiddlewareConsumer) {
