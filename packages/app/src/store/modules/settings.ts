@@ -11,14 +11,12 @@ export interface ISettingsState {
   sidebarTextTheme: boolean;
 }
 
-const changeSetting = (state: ISettingsState) => (
-  key: string,
-  value: string | boolean,
-) => {
-  if (state.hasOwnProperty(key)) {
-    state[key] = value;
-  }
-};
+const changeSetting =
+  (state: ISettingsState) => (key: string, value: string | boolean) => {
+    if (state.hasOwnProperty(key)) {
+      state[key] = value;
+    }
+  };
 
 const createState = (): ISettingsState => {
   return reactive({

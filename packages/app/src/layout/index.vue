@@ -5,7 +5,7 @@ import {
   AppMain,
   Navbar,
   Settings,
-  // Sidebar,
+  Sidebar,
   // TagsView,
 } from './components';
 import { useResize } from './mixin/ResizeHandler';
@@ -41,7 +41,7 @@ useResize();
       class="drawer-bg"
       @click="handleClickOutside"
     />
-    <!-- <Sidebar class="sidebar-container" /> -->
+    <Sidebar class="sidebar-container" />
     <div :class="{ hasTagsView: needTagsView }" class="main-container">
       <div :class="{ 'fixed-header': fixedHeader }">
         <Navbar />

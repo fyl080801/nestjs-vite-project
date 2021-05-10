@@ -45,9 +45,9 @@ const logout = async () => {
 
         <!-- <Screenfull id="screenfull" class="right-menu-item hover-effect" /> -->
 
-        <ElTooltip content="Global Size" effect="dark" placement="bottom">
+        <!-- <ElTooltip content="Global Size" effect="dark" placement="bottom">
           <SizeSelect id="size-select" class="right-menu-item hover-effect" />
-        </ElTooltip>
+        </ElTooltip> -->
       </template>
 
       <ElDropdown

@@ -5,6 +5,8 @@ import { useSvgIcon } from './icons';
 
 import 'normalize.css';
 
+import './styles/index.scss';
+
 const app = createApp(App);
 
 useRouter(app);

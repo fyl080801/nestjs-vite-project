@@ -4038,10 +4038,10 @@ electron-to-chromium@^1.3.712:
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.717.tgz#78d4c857070755fb58ab64bcc173db1d51cbc25f"
   integrity sha512-OfzVPIqD1MkJ7fX+yTl2nKyOE4FReeVfMCzzxQS+Kp43hZYwHwThlGP+EGIZRXJsxCM7dqo8Y65NOX/HP12iXQ==
 
-element-plus@^1.0.2-beta.41:
-  version "1.0.2-beta.41"
-  resolved "https://registry.yarnpkg.com/element-plus/-/element-plus-1.0.2-beta.41.tgz#9c234b536b3401d042505c003e579bd65081f0f0"
-  integrity sha512-GikmQdajaKB5oLxfHxhKXGXtiNoaN1wYiLr9aRx+yxwLx3nPDfoBx60+nrZoN6BOCk2M0HjBVj9TtA214WLRYw==
+element-plus@^1.0.2-beta.42:
+  version "1.0.2-beta.42"
+  resolved "https://registry.yarnpkg.com/element-plus/-/element-plus-1.0.2-beta.42.tgz#f2e4ca612e7757cd4b3bbb22b223540f37389ce9"
+  integrity sha512-6BS8hC2Bs3bggHQ7CdY+pQ+AJmZhQm3UGqA3Bh2mSNC+f2Fk5IELBvi/J1zRdz69LCCW5f9XEWf5B7OrOIfcKQ==
   dependencies:
     "@popperjs/core" "^2.4.4"
     "@types/lodash" "^4.14.161"
@@ -8412,10 +8412,10 @@ prettier-linter-helpers@^1.0.0:
   dependencies:
     fast-diff "^1.1.2"
 
-prettier@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.2.1.tgz#795a1a78dd52f073da0cd42b21f9c91381923ff5"
-  integrity sha512-PqyhM2yCjg/oKkFPtTGUojv7gnZAoG80ttl45O6x2Ug/rMJw4wcc9k6aaf2hibP7BGVCCM33gZoGjyvt9mm16Q==
+prettier@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.3.0.tgz#b6a5bf1284026ae640f17f7ff5658a7567fc0d18"
+  integrity sha512-kXtO4s0Lz/DW/IJ9QdWhAf7/NmPWQXkFr/r/WkR3vyI+0v8amTDxiaQSLzs8NBlytfLWX/7uQUMIW677yLKl4w==
 
 pretty-format@^26.0.0, pretty-format@^26.6.2:
   version "26.6.2"
