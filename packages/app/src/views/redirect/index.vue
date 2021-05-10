@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, h } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 
 export default defineComponent({
@@ -10,8 +10,8 @@ export default defineComponent({
     const { path } = params;
     router.replace({ path: '/' + path, query });
   },
-  render: function (h) {
-    return h(); // avoid warning message
+  render() {
+    return null; // avoid warning message
   },
 });
 </script>

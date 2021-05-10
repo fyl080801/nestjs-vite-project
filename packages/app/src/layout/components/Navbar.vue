@@ -3,16 +3,11 @@ import { computed } from 'vue';
 import Breadcrumb from '../../components/Breadcrumb/index.vue';
 import Hamburger from '../../components/Hamburger/index.vue';
 import ErrorLog from '../../components/ErrorLog/index.vue';
-// import Screenfull from '../../components/Screenfull/index.vue';
+import Screenfull from '../../components/Screenfull/index.vue';
 import SizeSelect from '../../components/SizeSelect/index.vue';
 // import Search from '../../components/HeaderSearch';
 import { useAppStore, useUserStore, DeviceType } from '../../store';
-import {
-  ElTooltip,
-  ElDropdown,
-  ElDropdownMenu,
-  ElDropdownItem,
-} from 'element-plus';
+import { ElDropdown, ElDropdownMenu, ElDropdownItem } from 'element-plus';
 
 const { state: appState, toggleSideBar } = useAppStore();
 const { state: userState, userLogout } = useUserStore();
@@ -40,14 +35,9 @@ const logout = async () => {
     <div class="right-menu">
       <template v-if="device !== DeviceType.Mobile">
         <!-- <search id="header-search" class="right-menu-item" /> -->
-
         <ErrorLog class="errLog-container right-menu-item hover-effect" />
-
-        <!-- <Screenfull id="screenfull" class="right-menu-item hover-effect" /> -->
-
-        <!-- <ElTooltip content="Global Size" effect="dark" placement="bottom">
-          <SizeSelect id="size-select" class="right-menu-item hover-effect" />
-        </ElTooltip> -->
+        <Screenfull id="screenfull" class="right-menu-item hover-effect" />
+        <!-- <SizeSelect id="size-select" class="right-menu-item hover-effect" /> -->
       </template>
 
       <ElDropdown

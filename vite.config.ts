@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import legacy from '@vitejs/plugin-legacy';
-// import svg from 'vite-plugin-svg-sprite';
+import createSvgSpritePlugin from 'vite-plugin-svg-sprite';
 import { MODULE_PATH } from '@nestseed/common';
 
 export default defineConfig({
@@ -13,5 +13,9 @@ export default defineConfig({
       interval: 100,
     },
   },
-  plugins: [vue(), legacy({ targets: ['defaults', 'not IE 11'] })],
+  plugins: [
+    vue(),
+    legacy({ targets: ['defaults', 'not IE 11'] }),
+    createSvgSpritePlugin({ symbolId: 'icon-[name]' }),
+  ],
 });

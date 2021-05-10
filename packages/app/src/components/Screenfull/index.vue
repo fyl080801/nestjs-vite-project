@@ -1,15 +1,6 @@
-<template>
-  <div>
-    <svg-icon
-      :icon-class="isFullscreen ? 'exit-fullscreen' : 'fullscreen'"
-      @click="click"
-    />
-  </div>
-</template>
-
 <script lang="ts" setup>
 import { ref, onBeforeUnmount, onMounted } from 'vue';
-import * as screenfull from 'screenfull';
+import screenfull from 'screenfull';
 import { ElMessage } from 'element-plus';
 
 const isFullscreen = ref(false);
@@ -23,7 +14,7 @@ const click = () => {
 };
 
 const change = () => {
-  isFullscreen.value = screenfull.isFullscreen;
+  isFullscreen.value = (screenfull as any).isFullscreen;
 };
 
 const init = () => {
@@ -46,6 +37,15 @@ onMounted(() => {
   init();
 });
 </script>
+
+<template>
+  <div>
+    <svg-icon
+      :icon-class="isFullscreen ? 'exit-fullscreen' : 'fullscreen'"
+      @click="click"
+    />
+  </div>
+</template>
 
 <style scoped>
 .screenfull-svg {

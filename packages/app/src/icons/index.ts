@@ -7,7 +7,8 @@ export const useSvgIcon = (app: App<Element>) => {
 
 const req = import.meta.glob('./svg/**/*.svg');
 
-const requireAll = (requireContext) =>
-  Object.keys(requireContext).map((key) => requireContext[key]);
-// console.log(req);
+const requireAll = (requireContext: { [key: string]: any }) => {
+  return Object.keys(requireContext).map((key) => requireContext[key]());
+};
+
 requireAll(req);
