@@ -1,7 +1,6 @@
 <template>
   <div class="dashboard-container">
     dashboard
-    <svg-icon icon-class="404"></svg-icon>
     <!-- <component :is="currentRole" /> -->
   </div>
 </template>
