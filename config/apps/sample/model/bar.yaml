@@ -1,0 +1,10 @@
+rules:
+  admin: create,delete,update,read
+  user: create,read
+  guest: read
+
+columns:
+  name:
+    type: string
+  num:
+    type: number

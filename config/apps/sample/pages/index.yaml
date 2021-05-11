@@ -1,0 +1,10 @@
+roles: admin,user,guest
+
+datasource:
+  - type: entity
+    props:
+      name: bar
+
+fields:
+  - component: div
+    children: []
