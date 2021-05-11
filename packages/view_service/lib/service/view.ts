@@ -1,32 +1,30 @@
 import { Inject, Injectable, Request, Scope } from '@nestjs/common';
-import { createServer, ViteDevServer } from 'vite';
+import { createServer } from 'vite';
 import * as fs from 'fs';
 import * as path from 'path';
 import { REQUEST } from '@nestjs/core';
 import { renderString } from 'nunjucks';
 import { StaticService } from './static';
-
-let server: ViteDevServer = null;
+import { Constants } from '../types';
 
 @Injectable({ scope: Scope.REQUEST })
 export class ViewService {
-  private server: ViteDevServer;
-
   constructor(
     @Inject(REQUEST) private readonly request: Request,
+    @Inject('constants') private readonly constants: Constants,
     private readonly staticService: StaticService,
   ) {}
 
   async bootstrap() {
-    if (!server) {
-      server = await createServer();
+    if (!this.constants.server) {
+      this.constants.server = await createServer();
     }
-    return server;
+    return this.constants.server;
   }
 
   async destroy() {
-    await server.close();
-    server = null;
+    await this.constants.server.close();
+    this.constants.server = null;
   }
 
   async render(view: string, data?: any) {
@@ -47,7 +45,9 @@ export class ViewService {
         viewPath.splice(1, viewPath.length).join('/'),
       );
 
-      template = await (await this.bootstrap()).transformIndexHtml(
+      template = await (
+        await this.bootstrap()
+      ).transformIndexHtml(
         this.request.url,
         await fs.promises.readFile(devLocation, 'utf-8'),
       );

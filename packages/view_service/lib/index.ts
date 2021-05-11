@@ -5,6 +5,7 @@ import {
   OnModuleInit,
   OnModuleDestroy,
   RequestMethod,
+  Scope,
 } from '@nestjs/common';
 import { ViewService } from './service/view';
 import { StaticService } from './service/static';
@@ -16,11 +17,16 @@ export * from './decorators/view';
 @Module({
   imports: [],
   controllers: [],
-  providers: [ViewService, StaticService],
+  providers: [
+    ViewService,
+    StaticService,
+    { provide: 'constants', scope: Scope.DEFAULT, useValue: { server: null } },
+  ],
   exports: [ViewService, StaticService],
 })
 export class ViewServiceModule
-  implements NestModule, OnModuleInit, OnModuleDestroy {
+  implements NestModule, OnModuleInit, OnModuleDestroy
+{
   constructor(private readonly view: ViewService) {}
 
   async onModuleInit() {

@@ -9,7 +9,7 @@ const { collapse } = defineProps({
 });
 
 const data = reactive({
-  title: 'Vue Element Admin',
+  title: 'Nest Seed',
   logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png',
 });
 </script>
