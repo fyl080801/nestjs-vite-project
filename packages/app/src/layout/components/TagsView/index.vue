@@ -8,7 +8,7 @@ import {
   ref,
   getCurrentInstance,
 } from 'vue';
-import { useStore } from 'vuex';
+import { useTagsViewStore, usePermissionStore } from '../../../store';
 import { useRoute, useRouter } from 'vue-router';
 import ScrollPane from './ScrollPane.vue';
 import * as path from 'path';
@@ -16,7 +16,17 @@ import * as path from 'path';
 const { proxy } = getCurrentInstance();
 const tag = ref();
 const scrollPane = ref();
-const { state, dispatch } = useStore();
+const {
+  state: tagViewState,
+  addVisitedView,
+  addView,
+  updateVisitedView,
+  delCachedView,
+  delView,
+  delOthersViews,
+  delAllViews,
+} = useTagsViewStore();
+const { state: permissionState } = usePermissionStore();
 const route = useRoute();
 const router = useRouter();
 const data = reactive({
@@ -26,8 +36,8 @@ const data = reactive({
   selectedTag: {},
   affixTags: [],
 });
-const visitedViews = computed(() => state.tagsView.visitedViews);
-const routes = computed(() => state.permission.routes);
+const visitedViews = computed(() => tagViewState.visitedViews);
+const routes = computed(() => permissionState.routes);
 
 const isActive = (route) => {
   return route.path === route.path;
@@ -60,11 +70,11 @@ const filterAffixTags = (routes, basePath = '/') => {
 };
 
 const initTags = () => {
-  const affixTags = (data.affixTags = filterAffixTags(routes));
+  const affixTags = (data.affixTags = filterAffixTags(routes.value));
   for (const tag of affixTags) {
     // Must have tag name
     if (tag.name) {
-      dispatch('tagsView/addVisitedView', tag);
+      addVisitedView(tag);
     }
   }
 };
@@ -72,7 +82,7 @@ const initTags = () => {
 const addTags = () => {
   const { name } = route;
   if (name) {
-    dispatch('tagsView/addView', route);
+    addView(route);
   }
   return false;
 };
@@ -85,7 +95,7 @@ const moveToCurrentTag = () => {
         scrollPane.value.moveToTarget(tag);
         // when query is different then update
         if (tag.to.fullPath !== route.fullPath) {
-          dispatch('tagsView/updateVisitedView', route);
+          updateVisitedView(route);
         }
         break;
       }
@@ -94,7 +104,7 @@ const moveToCurrentTag = () => {
 };
 
 const refreshSelectedTag = (view) => {
-  dispatch('tagsView/delCachedView', view).then(() => {
+  delCachedView(view).then(() => {
     const { fullPath } = view;
     nextTick(() => {
       router.replace({
@@ -105,7 +115,7 @@ const refreshSelectedTag = (view) => {
 };
 
 const closeSelectedTag = (view) => {
-  dispatch('tagsView/delView', view).then(({ visitedViews }) => {
+  delView(view).then(({ visitedViews }) => {
     if (isActive(view)) {
       toLastView(visitedViews, view);
     }
@@ -114,13 +124,13 @@ const closeSelectedTag = (view) => {
 
 const closeOthersTags = () => {
   router.push(data.selectedTag);
-  dispatch('tagsView/delOthersViews', data.selectedTag).then(() => {
+  delOthersViews(data.selectedTag).then(() => {
     moveToCurrentTag();
   });
 };
 
 const closeAllTags = (view) => {
-  dispatch('tagsView/delAllViews').then(({ visitedViews }) => {
+  delAllViews().then(({ visitedViews }) => {
     if (data.affixTags.some((tag) => tag.path === view.path)) {
       return;
     }

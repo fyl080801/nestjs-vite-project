@@ -6,6 +6,8 @@ export interface ITagView {
   path: string;
   title?: string;
   meta: any;
+  query: any;
+  fullPath: string;
 }
 
 export interface ITagsViewState {

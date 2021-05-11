@@ -1,13 +1,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 import RightPanel from '../components/RightPanel/index.vue';
-import {
-  AppMain,
-  Navbar,
-  Settings,
-  Sidebar,
-  // TagsView,
-} from './components';
+import { AppMain, Navbar, Settings, Sidebar, TagsView } from './components';
 import { useResize } from './mixin/ResizeHandler';
 import { useSettingsStore, useAppStore, DeviceType } from '../store';
 
@@ -45,7 +39,7 @@ useResize();
     <div :class="{ hasTagsView: needTagsView }" class="main-container">
       <div :class="{ 'fixed-header': fixedHeader }">
         <Navbar />
-        <!-- <TagsView v-if="needTagsView" /> -->
+        <TagsView v-if="needTagsView" />
       </div>
       <AppMain />
       <RightPanel v-if="showSettings">

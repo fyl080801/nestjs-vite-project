@@ -1,11 +1,5 @@
-<template>
-  <div class="dashboard-container">
-    dashboard
-    <!-- <component :is="currentRole" /> -->
-  </div>
-</template>
-
 <script lang="ts" setup>
+import { ElButton } from 'element-plus';
 // import { mapGetters } from 'vuex';
 // import adminDashboard from './admin';
 // import editorDashboard from './editor';
@@ -28,3 +22,12 @@
 //   },
 // };
 </script>
+
+<template>
+  <div class="dashboard-container">
+    dashboard
+    <i class="el-icon-setting"></i>
+    <ElButton>xxx</ElButton>
+    <!-- <component :is="currentRole" /> -->
+  </div>
+</template>

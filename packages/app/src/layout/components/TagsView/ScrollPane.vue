@@ -1,14 +1,3 @@
-<template>
-  <el-scrollbar
-    ref="scrollContainer"
-    :vertical="false"
-    class="scroll-container"
-    @wheel.native.prevent="handleScroll"
-  >
-    <slot />
-  </el-scrollbar>
-</template>
-
 <script lang="ts" setup>
 import {
   ref,
@@ -18,6 +7,7 @@ import {
   defineEmit,
   getCurrentInstance,
 } from 'vue';
+import { ElScrollbar } from 'element-plus';
 
 const tagAndTagSpacing = 4; // tagAndTagSpacing
 
@@ -25,7 +15,9 @@ const { proxy } = getCurrentInstance();
 const emit = defineEmit(['scroll']);
 const scrollContainer = ref();
 const left = ref(0);
-const scrollWrapper = computed(() => scrollContainer.value.$refs.wrap);
+const scrollWrapper = computed(() => {
+  return scrollContainer.value.$refs.wrap;
+});
 
 const handleScroll = (e) => {
   const eventDelta = e.wheelDelta || -e.deltaY * 40;
@@ -85,6 +77,17 @@ onUnmounted(() => {
   scrollWrapper.value.removeEventListener('scroll', emitScroll);
 });
 </script>
+
+<template>
+  <ElScrollbar
+    ref="scrollContainer"
+    :vertical="false"
+    class="scroll-container"
+    @wheel.native.prevent="handleScroll"
+  >
+    <slot />
+  </ElScrollbar>
+</template>
 
 <style lang="scss" scoped>
 .scroll-container {

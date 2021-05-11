@@ -71,7 +71,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div ref="rightPanel" :class="{ show: show }" class="rightPanel-container">
+  <div ref="rightPanel" :class="{ show }" class="rightPanel-container">
     <div class="rightPanel-background" />
     <div class="rightPanel">
       <div
@@ -79,7 +79,7 @@ onBeforeUnmount(() => {
         :style="{ top: buttonTop + 'px', backgroundColor: theme }"
         @click="show = !show"
       >
-        <i :class="show ? 'el-icon-close' : 'el-icon-setting'" />
+        <i :class="{ 'el-icon-close': show, 'el-icon-setting': !show }"></i>
       </div>
       <div class="rightPanel-items">
         <slot />
