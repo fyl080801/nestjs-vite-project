@@ -14,8 +14,8 @@ import ScrollPane from './ScrollPane.vue';
 import * as path from 'path';
 
 const { proxy } = getCurrentInstance();
-const tag = ref();
-const scrollPane = ref();
+const tagList = ref([]);
+const currentTag = ref();
 const {
   state: tagViewState,
   addVisitedView,
@@ -39,8 +39,8 @@ const data = reactive({
 const visitedViews = computed(() => tagViewState.visitedViews);
 const routes = computed(() => permissionState.routes);
 
-const isActive = (route) => {
-  return route.path === route.path;
+const isActive = (r) => {
+  return route.path === r.path;
 };
 
 const isAffix = (tag) => {
@@ -70,6 +70,7 @@ const filterAffixTags = (routes, basePath = '/') => {
 };
 
 const initTags = () => {
+  tagList.value = [];
   const affixTags = (data.affixTags = filterAffixTags(routes.value));
   for (const tag of affixTags) {
     // Must have tag name
@@ -88,11 +89,11 @@ const addTags = () => {
 };
 
 const moveToCurrentTag = () => {
-  const tags = tag.value;
+  const tags = tagList.value;
   nextTick(() => {
     for (const tag of tags) {
       if (tag.to.path === route.path) {
-        scrollPane.value.moveToTarget(tag);
+        currentTag.value = tag;
         // when query is different then update
         if (tag.to.fullPath !== route.fullPath) {
           updateVisitedView(route);
@@ -179,11 +180,12 @@ const handleScroll = () => {
 };
 
 watch(
-  () => route,
+  () => route.path,
   () => {
     addTags();
     moveToCurrentTag();
   },
+  { immediate: true },
 );
 
 watch(
@@ -205,14 +207,14 @@ onMounted(() => {
 
 <template>
   <div id="tags-view-container" class="tags-view-container">
-    <scroll-pane
-      ref="scrollPane"
+    <ScrollPane
       class="tags-view-wrapper"
+      :model-value="currentTag"
       @scroll="handleScroll"
     >
       <router-link
         v-for="tag in visitedViews"
-        ref="tag"
+        :ref="(el) => tagList.push(el)"
         :key="tag.path"
         :class="isActive(tag) ? 'active' : ''"
         :to="{ path: tag.path, query: tag.query, fullPath: tag.fullPath }"
@@ -228,7 +230,7 @@ onMounted(() => {
           @click.prevent.stop="closeSelectedTag(tag)"
         />
       </router-link>
-    </scroll-pane>
+    </ScrollPane>
     <ul
       v-show="data.visible"
       :style="{ left: data.left + 'px', top: data.top + 'px' }"

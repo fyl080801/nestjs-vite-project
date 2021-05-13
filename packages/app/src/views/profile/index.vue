@@ -39,6 +39,7 @@
 
 <template>
   <div class="app-container">
+    profile
     <!-- <div v-if="user">
       <el-row :gutter="20">
 

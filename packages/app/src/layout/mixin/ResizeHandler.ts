@@ -26,7 +26,7 @@ export const useResize = () => {
   };
 
   watch(
-    () => route,
+    () => route.path,
     () => {
       if (state.device === DeviceType.Mobile && state.sidebar.opened) {
         closeSideBar(false);
