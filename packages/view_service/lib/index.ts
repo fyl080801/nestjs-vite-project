@@ -40,9 +40,10 @@ export class ViewServiceModule
   }
 
   async configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(ViteMiddleware)
-      .forRoutes({ path: '/*', method: RequestMethod.ALL });
+    consumer.apply(ViteMiddleware).forRoutes(
+      { path: '/*', method: RequestMethod.ALL },
+      // { path: '!(.*)', method: RequestMethod.ALL },
+    );
   }
 }
 

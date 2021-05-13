@@ -45,7 +45,8 @@ const logout = async () => {
         trigger="click"
       >
         <div class="avatar-wrapper">
-          <img :src="avatar + '?imageView2/1/w/80/h/80'" class="user-avatar" />
+          <!-- <img :src="avatar + '?imageView2/1/w/80/h/80'" class="user-avatar" /> -->
+          <svg-icon icon-class="user" class="user-avatar"></svg-icon>
           <i class="el-icon-caret-bottom" />
         </div>
         <template #dropdown>
