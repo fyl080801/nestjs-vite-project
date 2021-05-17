@@ -1,20 +1,14 @@
-import { Module, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
-import { Sequelize } from 'sequelize-typescript';
+import { Inject, Module, OnApplicationBootstrap } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { Sequelize, SequelizeOptions } from 'sequelize-typescript';
 import { TestModel } from './entities/TestModel';
 
 const dbprovider = {
   provide: 'SEQUELIZE',
-  useFactory: async () => {
-    const sequelize = new Sequelize({
-      dialect: 'mysql',
-      host: '127.0.0.1',
-      port: 3306,
-      username: 'root',
-      password: '!QAZ2wsx',
-      database: 'nesttest',
-    });
-    sequelize.addModels([TestModel]);
-    await sequelize.sync({ alter: { drop: false } });
+  inject: [ConfigService],
+  useFactory: async (configService: ConfigService) => {
+    const config = configService.get<SequelizeOptions>('data_access', {});
+    const sequelize = new Sequelize(config);
     return sequelize;
   },
 };
@@ -23,12 +17,12 @@ const dbprovider = {
   providers: [dbprovider],
   exports: [dbprovider],
 })
-export class DataAccessModule implements OnApplicationBootstrap, OnModuleInit {
-  onApplicationBootstrap() {
-    console.log('boot');
-  }
+export class DataAccessModule implements OnApplicationBootstrap {
+  constructor(@Inject('SEQUELIZE') private readonly sequelize: Sequelize) {}
 
-  onModuleInit() {
-    console.log('init');
+  async onApplicationBootstrap() {
+    // 各模块在init注册实体类型，bootstrap初始化数据库
+    this.sequelize.addModels([TestModel]);
+    await this.sequelize.sync({ alter: { drop: false } });
   }
 }
