@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { UserService } from './service/user';
+import { UserService } from '@nestseed/membership';
 import { AuthService } from './service/auth';
 import { LocalStrategy } from './strategy/local';
 import { CookieStrategy } from './strategy/cookie';

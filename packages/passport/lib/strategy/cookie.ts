@@ -4,7 +4,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { AuthConfig } from '../types';
-import { UserService } from '../service/user';
+import { UserService } from '@nestseed/membership';
 
 @Injectable()
 export class CookieStrategy extends PassportStrategy(Strategy, 'cookie') {

@@ -36,7 +36,7 @@
     "@nestjs/platform-fastify": "^7.6.15",
     "@nestjs/serve-static": "^2.1.4",
     "fastify-cookie": "^5.3.1",
-    "fastify-static": "^4.0.1",
+    "fastify-static": "^4.2.0",
     "js-yaml": "^4.1.0",
     "mysql2": "^2.2.5",
     "nunjucks": "^3.2.3",
@@ -50,7 +50,7 @@
     "rxjs": "^6.6.6",
     "sequelize": "^6.6.2",
     "sequelize-typescript": "^2.1.0",
-    "vite": "^2.3.2"
+    "vite": "^2.3.3"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.6.0",
@@ -66,9 +66,9 @@
     "@types/passport-local": "^1.0.33",
     "@types/sequelize": "^4.28.9",
     "@types/supertest": "^2.0.10",
-    "@typescript-eslint/eslint-plugin": "^4.23.0",
-    "@typescript-eslint/parser": "^4.23.0",
-    "@vitejs/plugin-legacy": "^1.3.4",
+    "@typescript-eslint/eslint-plugin": "^4.24.0",
+    "@typescript-eslint/parser": "^4.24.0",
+    "@vitejs/plugin-legacy": "^1.4.0",
     "@vitejs/plugin-vue": "^1.2.2",
     "@vue/compiler-sfc": "^3.0.11",
     "axios": "^0.21.1",

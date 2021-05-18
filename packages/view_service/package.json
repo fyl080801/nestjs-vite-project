@@ -32,7 +32,7 @@
     "@nestseed/common": "^1.1.2",
     "nunjucks": "^3.2.3",
     "rxjs": "^6.6.7",
-    "vite": "^2.3.2"
+    "vite": "^2.3.3"
   },
   "gitHead": "a99b839ab6677ffce2e4587aa42008d6be6d0633"
 }

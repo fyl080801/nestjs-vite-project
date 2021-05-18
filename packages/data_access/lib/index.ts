@@ -1,9 +1,9 @@
-import { Inject, Module, OnApplicationBootstrap } from '@nestjs/common';
+import { Inject, Module, OnApplicationBootstrap, Scope } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Sequelize, SequelizeOptions } from 'sequelize-typescript';
 import { TestModel } from './entities/TestModel';
 
-const dbprovider = {
+const SEQUELIZE = {
   provide: 'SEQUELIZE',
   inject: [ConfigService],
   useFactory: async (configService: ConfigService) => {
@@ -13,16 +13,26 @@ const dbprovider = {
   },
 };
 
+const DATA_MODELS = {
+  provide: 'DATA_MODELS',
+  scope: Scope.DEFAULT,
+  useValue: [],
+};
+
 @Module({
-  providers: [dbprovider],
-  exports: [dbprovider],
+  providers: [SEQUELIZE, DATA_MODELS],
+  exports: [SEQUELIZE, DATA_MODELS],
 })
 export class DataAccessModule implements OnApplicationBootstrap {
-  constructor(@Inject('SEQUELIZE') private readonly sequelize: Sequelize) {}
+  constructor(
+    @Inject('SEQUELIZE') private readonly sequelize: Sequelize,
+    @Inject('DATA_MODELS') private readonly dataModels: any[],
+  ) {}
 
   async onApplicationBootstrap() {
+    // console.log([TestModel, ...this.dataModels]);
     // 各模块在init注册实体类型，bootstrap初始化数据库
-    this.sequelize.addModels([TestModel]);
+    this.sequelize.addModels([TestModel, ...this.dataModels]);
     await this.sequelize.sync({ alter: { drop: false } });
   }
 }

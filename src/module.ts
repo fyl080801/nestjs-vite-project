@@ -5,6 +5,7 @@ import { ViewServiceModule } from '@nestseed/view_service';
 import { AdminLoginModule } from '@nestseed/admin_login';
 import { PassportModule } from '@nestseed/passport';
 import { DataAccessModule } from '@nestseed/data_access';
+import { MembershipModule } from '@nestseed/membership';
 import config from './config';
 import { HttpAdapterHost } from '@nestjs/core';
 import cookie from 'fastify-cookie';
@@ -16,6 +17,7 @@ import { CookieConfig } from './types';
     ConfigModule.forRoot({ isGlobal: true, load: [config] }),
     DataAccessModule,
     AppModule,
+    MembershipModule,
     PassportModule,
     ViewServiceModule,
     AdminLoginModule,

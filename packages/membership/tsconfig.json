@@ -5,5 +5,5 @@
   },
   "include": ["lib/**/*"],
   "exclude": ["node_modules", "dist", "test", "**/*spec.ts"],
-  "references": [{ "path": "../common" }, { "path": "../membership" }]
+  "references": [{ "path": "../data_access" }]
 }
