@@ -27,6 +27,6 @@
     "start:dev": "nodemon --inspect dist/lib/index.js"
   },
   "dependencies": {
-    "@nestjs/common": "^7.6.15"
+    "@nestjs/common": "^7.6.17"
   }
 }

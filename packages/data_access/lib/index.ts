@@ -1,17 +1,8 @@
-import { Inject, Module, OnApplicationBootstrap, Scope } from '@nestjs/common';
+import { Module, OnApplicationBootstrap, Scope } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Sequelize, SequelizeOptions } from 'sequelize-typescript';
-import { TestModel } from './entities/TestModel';
-
-const SEQUELIZE = {
-  provide: 'SEQUELIZE',
-  inject: [ConfigService],
-  useFactory: async (configService: ConfigService) => {
-    const config = configService.get<SequelizeOptions>('data_access', {});
-    const sequelize = new Sequelize(config);
-    return sequelize;
-  },
-};
+import { createConnection, ConnectionOptions } from 'typeorm';
+import { ModelService } from './service/model';
+import { DataContextService } from './service/context';
 
 const DATA_MODELS = {
   provide: 'DATA_MODELS',
@@ -19,20 +10,40 @@ const DATA_MODELS = {
   useValue: [],
 };
 
+const DATA_CONNECTION = {
+  provide: 'DATA_CONNECTION',
+  scope: Scope.REQUEST,
+  useValue: { instance: null },
+};
+
+const TYPEORM = {
+  provide: 'TYPEORM',
+  inject: [ConfigService],
+  useFactory: (configService: ConfigService) => {
+    const config = configService.get<ConnectionOptions>('data_access', {
+      type: 'mysql',
+    });
+    return async (entities: any[]) =>
+      await createConnection({ ...config, entities });
+  },
+};
+
 @Module({
-  providers: [SEQUELIZE, DATA_MODELS],
-  exports: [SEQUELIZE, DATA_MODELS],
+  providers: [
+    DATA_CONNECTION,
+    TYPEORM,
+    DATA_MODELS,
+    ModelService,
+    DataContextService,
+  ],
+  exports: [ModelService, DataContextService],
 })
 export class DataAccessModule implements OnApplicationBootstrap {
-  constructor(
-    @Inject('SEQUELIZE') private readonly sequelize: Sequelize,
-    @Inject('DATA_MODELS') private readonly dataModels: any[],
-  ) {}
+  constructor(private readonly context: DataContextService) {}
 
   async onApplicationBootstrap() {
-    // console.log([TestModel, ...this.dataModels]);
-    // 各模块在init注册实体类型，bootstrap初始化数据库
-    this.sequelize.addModels([TestModel, ...this.dataModels]);
-    await this.sequelize.sync({ alter: { drop: false } });
+    this.context.sync();
   }
 }
+
+export { ModelService, DataContextService };

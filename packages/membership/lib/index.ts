@@ -1,5 +1,5 @@
-import { Inject, Module, OnModuleInit } from '@nestjs/common';
-import { DataAccessModule } from '@nestseed/data_access';
+import { Module, OnModuleInit } from '@nestjs/common';
+import { DataAccessModule, ModelService } from '@nestseed/data_access';
 import { UserService } from './service/user';
 import { User } from './models/user';
 
@@ -9,10 +9,11 @@ import { User } from './models/user';
   exports: [UserService],
 })
 export class MembershipModule implements OnModuleInit {
-  constructor(@Inject('DATA_MODELS') private readonly dataModels: any[]) {}
+  constructor(private readonly modelService: ModelService) {}
 
   onModuleInit() {
-    this.dataModels.push(User);
+    this.modelService.addModel(User);
+    // this.dataModels.push(Role);
   }
 }
 

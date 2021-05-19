@@ -2,7 +2,13 @@
 
 ## Description
 
-monorepo 项目，基于 node 前后端全栈开发模式，页面基于 vite ~~提供中间件和打包服务~~
+monorepo 项目，基于 node 前后端全栈开发模式，页面基于 vite 提供中间件和打包服务
+
+### 数据访问
+
+已追加数据库访问功能，配置文件 `config/default.yaml` 中的 `data_access` 节点管理数据库相关配置
+
+数据访问层采用 `code first` 方式，根据实体类型自动同步表结构
 
 ## Installation
 

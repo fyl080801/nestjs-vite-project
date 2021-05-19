@@ -27,12 +27,7 @@
     "url": "https://github.com/fyl080801/nest-test/issues"
   },
   "dependencies": {
-    "@nestjs/common": "^7.6.15",
-    "@nestjs/core": "^7.6.15",
-    "@nestseed/common": "^1.1.2",
-    "nunjucks": "^3.2.3",
-    "rxjs": "^6.6.7",
-    "vite": "^2.3.3"
+    "@nestseed/common": "^1.1.2"
   },
   "gitHead": "a99b839ab6677ffce2e4587aa42008d6be6d0633"
 }

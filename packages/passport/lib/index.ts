@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { UserService } from '@nestseed/membership';
 import { AuthService } from './service/auth';
+import { MembershipModule } from '@nestseed/membership';
 import { LocalStrategy } from './strategy/local';
 import { CookieStrategy } from './strategy/cookie';
 import { AuthController } from './controller/auth';
@@ -28,17 +28,17 @@ export * from './types';
         };
       },
     }),
+    MembershipModule,
   ],
   controllers: [AuthController],
   providers: [
-    UserService,
     AuthService,
     LocalStrategy,
     JwtStrategy,
     CookieStrategy,
     UnauthorizedrRedirect,
   ],
-  exports: [JwtModule, UserService, AuthService, UnauthorizedrRedirect],
+  exports: [JwtModule, AuthService, UnauthorizedrRedirect],
 })
 export class PassportModule {}
 
