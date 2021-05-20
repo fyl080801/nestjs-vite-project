@@ -1,13 +1,14 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { Connection, EntityTarget, Repository } from 'typeorm';
+import { EntityTarget, Repository } from 'typeorm';
+import { ConnectionStore, TypeOrmBuilder } from '../types';
 
 @Injectable()
 export class DataContextService {
   constructor(
     @Inject('DATA_CONNECTION')
-    private readonly store: any,
+    private readonly store: ConnectionStore,
     @Inject('TYPEORM')
-    private readonly createConnection: (models: any[]) => Promise<Connection>,
+    private readonly createConnection: TypeOrmBuilder,
     @Inject('DATA_MODELS')
     private readonly models: any[],
   ) {}
@@ -20,7 +21,14 @@ export class DataContextService {
   }
 
   async sync() {
-    (await this.connection()).synchronize(false);
+    // 考虑如何实现数据迁移
+    // await (await this.connection()).runMigrations({ transaction: 'all' });
+    // const log = await (await this.connection()).driver
+    //   .createSchemaBuilder()
+    //   .log();
+
+    // console.log(log.upQueries);
+    await (await this.connection()).synchronize(false);
   }
 
   async set<T>(entity: EntityTarget<T>): Promise<Repository<T>> {

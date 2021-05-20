@@ -24,7 +24,12 @@ const TYPEORM = {
       type: 'mysql',
     });
     return async (entities: any[]) =>
-      await createConnection({ ...config, entities });
+      await createConnection({
+        ...config,
+        logging: true,
+        dropSchema: false,
+        entities,
+      });
   },
 };
 
