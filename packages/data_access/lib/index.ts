@@ -23,11 +23,13 @@ const TYPEORM = {
     const config = configService.get<ConnectionOptions>('data_access', {
       type: 'mysql',
     });
+
     return async (entities: any[]) =>
       await createConnection({
         ...config,
-        logging: true,
+        logging: false,
         dropSchema: false,
+        synchronize: false,
         entities,
       });
   },
@@ -44,10 +46,20 @@ const TYPEORM = {
   exports: [ModelService, DataContextService],
 })
 export class DataAccessModule implements OnApplicationBootstrap {
-  constructor(private readonly context: DataContextService) {}
+  constructor(
+    private readonly context: DataContextService,
+    private readonly configService: ConfigService,
+  ) {}
 
   async onApplicationBootstrap() {
-    this.context.sync();
+    // 理论上生产环境不应开启自动同步
+    // 如果有动态建表需求需要用typeorm的数据库操作api配合界面管理实现
+    const config = this.configService.get<ConnectionOptions>('data_access', {
+      type: 'mysql',
+    });
+    if (config.synchronize) {
+      this.context.sync();
+    }
   }
 }
 

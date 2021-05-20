@@ -22,11 +22,11 @@ export class DataContextService {
 
   async sync() {
     // 考虑如何实现数据迁移
-    // await (await this.connection()).runMigrations({ transaction: 'all' });
     // const log = await (await this.connection()).driver
     //   .createSchemaBuilder()
     //   .log();
-
+    // console.log(log);
+    // await (await this.connection()).runMigrations({ transaction: 'all' });
     // console.log(log.upQueries);
     await (await this.connection()).synchronize(false);
   }
