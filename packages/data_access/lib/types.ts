@@ -1,9 +1,9 @@
-import { Connection } from 'typeorm';
+import { Sequelize } from 'sequelize-typescript';
 
-export interface TypeOrmBuilder {
-  (models: any[]): Promise<Connection>;
+export interface ConnectionBuilder {
+  (models: any[]): Sequelize;
 }
 
 export interface ConnectionStore {
-  instance?: Connection;
+  instance?: Sequelize;
 }

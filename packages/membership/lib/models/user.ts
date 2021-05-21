@@ -1,13 +1,13 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Table, Model, DataType } from 'sequelize-typescript';
 
-@Entity({ name: 'user' })
-export class User {
-  @PrimaryGeneratedColumn()
+@Table({ tableName: 'user', updatedAt: false, createdAt: false })
+export class User extends Model {
+  @Column({ primaryKey: true })
   id: number;
 
-  @Column({ length: 20, nullable: false })
+  @Column({ type: DataType.STRING(20), allowNull: false })
   username: string;
 
-  @Column({ length: 255, nullable: false })
+  @Column({ type: DataType.STRING(255), allowNull: false })
   password: string;
 }

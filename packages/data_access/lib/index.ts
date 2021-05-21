@@ -1,6 +1,6 @@
 import { Module, OnApplicationBootstrap, Scope } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { createConnection, ConnectionOptions } from 'typeorm';
+import { Sequelize, SequelizeOptions } from 'sequelize-typescript';
 import { ModelService } from './service/model';
 import { DataContextService } from './service/context';
 
@@ -16,29 +16,31 @@ const DATA_CONNECTION = {
   useValue: { instance: null },
 };
 
-const TYPEORM = {
-  provide: 'TYPEORM',
+const DBFACTORY = {
+  provide: 'DBFACTORY',
   inject: [ConfigService],
   useFactory: (configService: ConfigService) => {
-    const config = configService.get<ConnectionOptions>('data_access', {
-      type: 'mysql',
+    const config = configService.get<SequelizeOptions>('data_access', {
+      dialect: 'mysql',
     });
 
-    return async (entities: any[]) =>
-      await createConnection({
+    return (models: any[]) => {
+      const instance = new Sequelize({
         ...config,
-        logging: false,
-        dropSchema: false,
-        synchronize: false,
-        entities,
+        models,
+        query: { raw: true },
+        repositoryMode: false,
       });
+
+      return instance;
+    };
   },
 };
 
 @Module({
   providers: [
     DATA_CONNECTION,
-    TYPEORM,
+    DBFACTORY,
     DATA_MODELS,
     ModelService,
     DataContextService,
@@ -46,20 +48,10 @@ const TYPEORM = {
   exports: [ModelService, DataContextService],
 })
 export class DataAccessModule implements OnApplicationBootstrap {
-  constructor(
-    private readonly context: DataContextService,
-    private readonly configService: ConfigService,
-  ) {}
+  constructor(private readonly context: DataContextService) {}
 
   async onApplicationBootstrap() {
-    // 理论上生产环境不应开启自动同步
-    // 如果有动态建表需求需要用typeorm的数据库操作api配合界面管理实现
-    const config = this.configService.get<ConnectionOptions>('data_access', {
-      type: 'mysql',
-    });
-    if (config.synchronize) {
-      this.context.sync();
-    }
+    await this.context.sync();
   }
 }
 

@@ -1,37 +1,33 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { EntityTarget, Repository } from 'typeorm';
-import { ConnectionStore, TypeOrmBuilder } from '../types';
+// import { Model } from 'sequelize-typescript';
+import { ConnectionStore, ConnectionBuilder } from '../types';
 
 @Injectable()
 export class DataContextService {
   constructor(
     @Inject('DATA_CONNECTION')
     private readonly store: ConnectionStore,
-    @Inject('TYPEORM')
-    private readonly createConnection: TypeOrmBuilder,
+    @Inject('DBFACTORY')
+    private readonly createConnection: ConnectionBuilder,
     @Inject('DATA_MODELS')
     private readonly models: any[],
   ) {}
 
-  async connection() {
+  connection() {
     if (!this.store.instance) {
-      this.store.instance = await this.createConnection(this.models);
+      this.store.instance = this.createConnection(this.models);
     }
     return this.store.instance;
   }
 
   async sync() {
-    // 考虑如何实现数据迁移
-    // const log = await (await this.connection()).driver
-    //   .createSchemaBuilder()
-    //   .log();
-    // console.log(log);
-    // await (await this.connection()).runMigrations({ transaction: 'all' });
-    // console.log(log.upQueries);
-    await (await this.connection()).synchronize(false);
+    await this.connection().sync({ force: false, alter: true });
   }
 
-  async set<T>(entity: EntityTarget<T>): Promise<Repository<T>> {
-    return (await this.connection()).getRepository(entity);
-  }
+  // set<T>(modelClass: new () => Model<T, T>) {
+  //   if (!this.connection().repositoryMode) {
+  //     return modelClass;
+  //   }
+  //   return this.connection().getRepository(modelClass);
+  // }
 }

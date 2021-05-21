@@ -11,13 +11,12 @@ cookie:
   secret: seed
 
 data_access:
-  type: 'mysql'
+  dialect: 'mysql'
   host: '127.0.0.1'
   port: 3306
   username: 'root'
   password: '!QAZ2wsx'
   database: 'nesttest'
-  synchronize: true
 
 app:
   title: 标题
