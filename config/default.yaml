@@ -17,6 +17,7 @@ data_access:
   username: 'root'
   password: '!QAZ2wsx'
   database: 'nesttest'
+  logging: false
 
 app:
   title: 标题

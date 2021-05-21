@@ -2,6 +2,8 @@ import { Module, OnModuleInit } from '@nestjs/common';
 import { DataAccessModule, ModelService } from '@nestseed/data_access';
 import { UserService } from './service/user';
 import { User } from './models/user';
+import { Role } from './models/role';
+import { UserRole } from './models/userRole';
 
 @Module({
   imports: [DataAccessModule],
@@ -13,7 +15,8 @@ export class MembershipModule implements OnModuleInit {
 
   onModuleInit() {
     this.modelService.addModel(User);
-    // this.dataModels.push(Role);
+    this.modelService.addModel(Role);
+    this.modelService.addModel(UserRole);
   }
 }
 

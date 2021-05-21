@@ -23,11 +23,4 @@ export class DataContextService {
   async sync() {
     await this.connection().sync({ force: false, alter: true });
   }
-
-  // set<T>(modelClass: new () => Model<T, T>) {
-  //   if (!this.connection().repositoryMode) {
-  //     return modelClass;
-  //   }
-  //   return this.connection().getRepository(modelClass);
-  // }
 }
