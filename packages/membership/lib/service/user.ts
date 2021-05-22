@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-// import { Role } from '../models/role';
+import { Role } from '../models/role';
 import { User } from '../models/user';
 
 @Injectable()
@@ -18,5 +18,10 @@ export class UserService {
         where: { username: payload.username, id: payload.id },
       })
     ).toJSON() as User;
+  }
+
+  async getById(id: number) {
+    const result = await User.findOne({ where: { id }, include: Role });
+    return result;
   }
 }

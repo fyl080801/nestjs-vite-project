@@ -7,7 +7,12 @@ import Screenfull from '../../components/Screenfull/index.vue';
 // import SizeSelect from '../../components/SizeSelect/index.vue';
 // import Search from '../../components/HeaderSearch';
 import { useAppStore, useUserStore, DeviceType } from '../../store';
-import { ElDropdown, ElDropdownMenu, ElDropdownItem } from 'element-plus';
+import {
+  ElDropdown,
+  ElDropdownMenu,
+  ElDropdownItem,
+  ElMessageBox,
+} from 'element-plus';
 
 const { state: appState, toggleSideBar } = useAppStore();
 const { state: userState, userLogout } = useUserStore();
@@ -16,8 +21,13 @@ const avatar = computed(() => userState.avatar);
 const device = computed(() => appState.device);
 
 const logout = async () => {
-  await userLogout();
-  window.location.reload();
+  try {
+    await ElMessageBox.confirm('是否退出？', '退出');
+    await userLogout();
+    window.location.reload();
+  } catch {
+    // cancel
+  }
 };
 </script>
 
@@ -69,7 +79,7 @@ const logout = async () => {
               <ElDropdownItem>Docs</ElDropdownItem>
             </a>
             <ElDropdownItem divided @click.native="logout">
-              <span style="display: block">Log Out</span>
+              <span :style="{ display: 'block' }">Log Out</span>
             </ElDropdownItem>
           </ElDropdownMenu>
         </template>

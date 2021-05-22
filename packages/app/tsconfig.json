@@ -12,5 +12,9 @@
     "src",
     "vite.config.ts"
   ],
-  "references": [{ "path": "../view_service" }, { "path": "../passport" }]
+  "references": [
+    { "path": "../view_service" },
+    { "path": "../passport" },
+    { "path": "../membership" }
+  ]
 }

@@ -22,4 +22,29 @@ data_access:
 app:
   title: 标题
   description: 描述...
-  apps: default,sample
+
+  sitemap:
+    - path: page1
+      meta:
+        title: page1 title
+        icon: chart
+      children:
+        - path: page2
+          meta:
+            title: page2 title
+            icon: chart
+        - path: page3
+          meta:
+            hidden: true
+        - path: page4
+          meta:
+            title: page4 title
+            icon: chart
+    - path: page5
+      meta:
+        title: page5 title
+        icon: chart
+
+  apps:
+    default:
+    sample:
