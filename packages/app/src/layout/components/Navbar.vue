@@ -4,7 +4,7 @@ import Breadcrumb from '../../components/Breadcrumb/index.vue';
 import Hamburger from '../../components/Hamburger/index.vue';
 import ErrorLog from '../../components/ErrorLog/index.vue';
 import Screenfull from '../../components/Screenfull/index.vue';
-import SizeSelect from '../../components/SizeSelect/index.vue';
+// import SizeSelect from '../../components/SizeSelect/index.vue';
 // import Search from '../../components/HeaderSearch';
 import { useAppStore, useUserStore, DeviceType } from '../../store';
 import { ElDropdown, ElDropdownMenu, ElDropdownItem } from 'element-plus';

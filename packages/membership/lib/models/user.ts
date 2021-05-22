@@ -9,7 +9,7 @@ import { Role } from './role';
 import { UserRole } from './userRole';
 
 @Table({ tableName: 'user', updatedAt: false, createdAt: false })
-export class User extends Model {
+export class User extends Model<User> {
   @Column({ primaryKey: true, autoIncrement: true })
   id: number;
 

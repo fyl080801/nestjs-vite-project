@@ -3,7 +3,7 @@ import { User } from './user';
 import { Role } from './role';
 
 @Table({ tableName: 'user_role', updatedAt: false, createdAt: false })
-export class UserRole extends Model {
+export class UserRole extends Model<UserRole> {
   @ForeignKey(() => User)
   @Column
   userId: number;
