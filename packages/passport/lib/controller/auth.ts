@@ -22,11 +22,9 @@ export class AuthController {
 
   @Get('logout')
   logout(@Res({ passthrough: true }) response: FastifyReply) {
-    console.log('xxx');
     const config = this.configService.get<AuthConfig>('auth', {});
     const cookitname = config.cookie?.name;
     response.clearCookie(cookitname);
-    return true;
   }
 
   @Get('profile')
