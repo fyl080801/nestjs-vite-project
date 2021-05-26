@@ -4,7 +4,7 @@ import { AppController } from './controller/app';
 import { StaticService, ViewServiceModule } from '@nestseed/view_service';
 import { MembershipModule } from '@nestseed/membership';
 import { DataAccessModule, ModelService } from '@nestseed/data_access';
-import { MapAcl } from './models/mapAcl';
+import { Rule } from './models/rule';
 
 @Module({
   imports: [DataAccessModule, ViewServiceModule, MembershipModule],
@@ -20,6 +20,6 @@ export class AppModule implements OnModuleInit {
     // 这里的路径和 controller 的会冲突，因此要加上二级目录
     // 和 vite.config 里 assetsDir 定义的一致
     this.staticService.addStatic(__dirname, 'app/static');
-    this.modelService.addModel(MapAcl);
+    this.modelService.addModel(Rule);
   }
 }

@@ -44,6 +44,7 @@ app:
       meta:
         title: page5 title
         icon: chart
+        authorization: PAGE5
 
   apps:
     default:
