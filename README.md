@@ -10,6 +10,47 @@ monorepo 项目，基于 node 前后端全栈开发模式，页面基于 vite �
 
 数据访问层采用 `code first` 方式，根据实体类型自动同步表结构
 
+### 低代码开发
+
+`@nestseed/apps` 包提供低代码开发功能，每个模块定义在 config 目录下的 apps 目录里，每个模块放到一个文件夹中
+
+配置文件 `config/default.yaml` 中 `app/apps` 里定义启用的模块
+
+```yaml
+app:
+  title: 标题
+  description: 描述...
+  configPath: ./apps
+  apps: # 启用的模块
+    default: true
+    sample: true
+```
+
+#### 数据库迁移
+
+基于低代码开发功能可实现通过定义配置文件生成数据表，在每个模块目录下的 model 目录定义数据表，配置方式和 `sequelize` 一样
+
+`config/apps/sample/model/bar.yaml` 数据表定义示例
+
+```yaml
+config:
+  tableName: bar
+  createdAt: false
+  updatedAt: false
+
+columns:
+  id:
+    type: INTEGER
+    primaryKey: true
+  name:
+    type: STRING(50)
+    allowNull: false
+  remark:
+    type: STRING
+  num:
+    type: INTEGER
+```
+
 ## Installation
 
 ```bash
