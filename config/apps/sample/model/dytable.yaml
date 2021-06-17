@@ -1,10 +1,4 @@
-rules:
-  admin: create,delete,update,read
-  user: create,read
-  guest: read
-
 config:
-  tableName: bar
   createdAt: false
   updatedAt: false
 

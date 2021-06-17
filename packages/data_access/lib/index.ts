@@ -1,6 +1,5 @@
 import { Module, OnApplicationBootstrap } from '@nestjs/common';
-import { ModelService } from './service/model';
-import { DataContextService } from './service/context';
+import { ModelService, DataContextService } from './service';
 import { DATA_CONNECTION, DATA_MODELS, DBFACTORY } from './provider/core';
 
 @Module({

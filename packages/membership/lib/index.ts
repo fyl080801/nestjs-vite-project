@@ -1,9 +1,7 @@
 import { Module, OnModuleInit } from '@nestjs/common';
 import { DataAccessModule, ModelService } from '@nestseed/data_access';
-import { UserService } from './service/user';
-import { User } from './models/user';
-import { Role } from './models/role';
-import { UserRole } from './models/userRole';
+import { UserService } from './service';
+import { User, Role, UserRole } from './models';
 
 @Module({
   imports: [DataAccessModule],

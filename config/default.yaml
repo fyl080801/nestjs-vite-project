@@ -22,6 +22,7 @@ data_access:
 app:
   title: 标题
   description: 描述...
+  configPath: ./apps
 
   sitemap:
     - path: page1
@@ -47,5 +48,5 @@ app:
         authorization: PAGE5
 
   apps:
-    default:
-    sample:
+    default: true
+    sample: true

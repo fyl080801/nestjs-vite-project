@@ -1,5 +1,4 @@
 import { Injectable, Inject } from '@nestjs/common';
-// import { Model } from 'sequelize-typescript';
 import { ConnectionStore, ConnectionBuilder } from '../types';
 
 @Injectable()

@@ -1,11 +1,9 @@
 import { Module } from '@nestjs/common';
 import { AuthService } from './service/auth';
 import { MembershipModule } from '@nestseed/membership';
-import { LocalStrategy } from './strategy/local';
-import { CookieStrategy } from './strategy/cookie';
+import { LocalStrategy, CookieStrategy, JwtStrategy } from './strategy';
 import { AuthController } from './controller/auth';
 import { JwtModule } from '@nestjs/jwt';
-import { JwtStrategy } from './strategy/jwt';
 import { UnauthorizedrRedirect } from './filter/unauthorized';
 import { ConfigService } from '@nestjs/config';
 import { AuthConfig } from './types';

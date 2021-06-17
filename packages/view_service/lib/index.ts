@@ -7,8 +7,7 @@ import {
   RequestMethod,
   Scope,
 } from '@nestjs/common';
-import { ViewService } from './service/view';
-import { StaticService } from './service/static';
+import { ViewService, StaticService } from './service';
 import { ViteMiddleware } from './middleware/vite';
 import { ENV, Environments } from '@nestseed/common';
 
