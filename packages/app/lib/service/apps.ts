@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { DataContextService, ModelService } from '@nestseed/data_access';
+import { DataContextService } from '@nestseed/data_access';
 import { DataTypes } from 'sequelize';
 import { AppConfig } from '../types';
 import * as yaml from 'js-yaml';
@@ -11,7 +11,6 @@ import * as fs from 'fs';
 export class AppsService {
   constructor(
     private readonly context: DataContextService,
-    private readonly modelService: ModelService,
     private readonly configService: ConfigService,
   ) {}
 
@@ -36,22 +35,22 @@ export class AppsService {
 
     enableModules.forEach((m) => {
       try {
-        const moduleFeatures = fs.readdirSync(
-          path.resolve(modulePath, m, 'model'),
-        );
+        const moduleModelPath = path.resolve(modulePath, m, 'model');
 
-        moduleFeatures.forEach((f) => {
-          const modelName = f.split('.')[0];
+        if (!fs.existsSync(moduleModelPath)) {
+          return;
+        }
+
+        const moduleFeatures = fs.readdirSync(moduleModelPath);
+
+        moduleFeatures.forEach((fileName) => {
+          const modelName = fileName.split('.')[0];
           const modelDefine = yaml.load(
-            fs.readFileSync(path.resolve(modulePath, m, 'model', f), 'utf8'),
+            fs.readFileSync(
+              path.resolve(modulePath, m, 'model', fileName),
+              'utf8',
+            ),
           ) as Record<string, any>;
-
-          modelDefine.config = modelDefine.config || {
-            createdAt: false,
-            updatedAt: false,
-          };
-          modelDefine.config.tableName =
-            modelDefine.config.tableName || modelName;
 
           const columns = Object.keys(modelDefine.columns || {}).reduce(
             (pre, key) => {
@@ -69,7 +68,14 @@ export class AppsService {
 
           this.context
             .connection()
-            .define(modelName, columns, modelDefine.config);
+            .define(
+              modelName,
+              columns,
+              Object.assign(
+                { tableName: modelName, createdAt: false, updatedAt: false },
+                modelDefine.config,
+              ),
+            );
         });
       } catch {}
     });

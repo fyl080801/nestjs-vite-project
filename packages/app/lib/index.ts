@@ -23,6 +23,6 @@ export class AppModule implements OnModuleInit {
     // 和 vite.config 里 assetsDir 定义的一致
     this.staticService.addStatic(__dirname, 'app/static');
     this.modelService.addModel(Rule);
-    await this.appsService.initModels();
+    this.appsService.initModels();
   }
 }
