@@ -23,6 +23,7 @@ app:
   title: 标题
   description: 描述...
   configPath: ./apps
+  openapiPrefix: openapi
 
   sitemap:
     - path: page1

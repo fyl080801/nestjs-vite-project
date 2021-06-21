@@ -1,22 +1,41 @@
-import { Module, OnModuleInit } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  OnModuleInit,
+  RequestMethod,
+} from '@nestjs/common';
 import { HomeController, AppController } from './controller';
 import { StaticService, ViewServiceModule } from '@nestseed/view_service';
 import { MembershipModule } from '@nestseed/membership';
 import { DataAccessModule, ModelService } from '@nestseed/data_access';
 import { Rule } from './models/rule';
-import { AppsService } from './service';
+import { AppsService, ModelResource } from './service';
+import { modelRestful } from './middleware';
+import { ConfigService } from '@nestjs/config';
+import { AppConfig } from './types';
 
 @Module({
-  providers: [AppsService],
+  providers: [AppsService, ModelResource],
   imports: [DataAccessModule, ViewServiceModule, MembershipModule],
   controllers: [HomeController, AppController],
 })
-export class AppModule implements OnModuleInit {
+export class AppModule implements OnModuleInit, NestModule {
   constructor(
     private readonly staticService: StaticService,
     private readonly modelService: ModelService,
     private readonly appsService: AppsService,
+    private readonly configService: ConfigService,
   ) {}
+
+  configure(consumer: MiddlewareConsumer) {
+    const config = this.configService.get<AppConfig>('app');
+
+    consumer.apply(modelRestful(config)).forRoutes({
+      path: `/${config?.openapiPrefix || 'openapi'}/(.*)`,
+      method: RequestMethod.ALL,
+    });
+  }
 
   async onModuleInit() {
     // 这里的路径和 controller 的会冲突，因此要加上二级目录
