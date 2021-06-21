@@ -10,13 +10,13 @@ import { StaticService, ViewServiceModule } from '@nestseed/view_service';
 import { MembershipModule } from '@nestseed/membership';
 import { DataAccessModule, ModelService } from '@nestseed/data_access';
 import { Rule } from './models/rule';
-import { AppsService, ModelResource } from './service';
-import { modelRestful } from './middleware';
+import { AppsService, IndexRestfulHandler } from './service';
+import { ModelRestful } from './middleware';
 import { ConfigService } from '@nestjs/config';
 import { AppConfig } from './types';
 
 @Module({
-  providers: [AppsService, ModelResource],
+  providers: [AppsService, IndexRestfulHandler],
   imports: [DataAccessModule, ViewServiceModule, MembershipModule],
   controllers: [HomeController, AppController],
 })
@@ -31,7 +31,7 @@ export class AppModule implements OnModuleInit, NestModule {
   configure(consumer: MiddlewareConsumer) {
     const config = this.configService.get<AppConfig>('app');
 
-    consumer.apply(modelRestful(config)).forRoutes({
+    consumer.apply(ModelRestful).forRoutes({
       path: `/${config?.openapiPrefix || 'openapi'}/(.*)`,
       method: RequestMethod.ALL,
     });

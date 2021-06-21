@@ -1,2 +1,2 @@
 export * from './apps';
-export * from './modelResource';
+export * from './resetful';

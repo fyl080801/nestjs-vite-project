@@ -1,35 +1,44 @@
+import { Injectable, NestMiddleware } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { ServerResponse } from 'http';
-import { AppConfig } from '../types';
+import { AppConfig, RestfulHandler } from '../types';
+import { splitPath } from '../utils/resetful';
+import { IndexRestfulHandler } from '../service';
 
-const splitPath = (prefix: string, path: string) => {
-  const regex = new RegExp(
-      '^/' + prefix + '/?([^/]+)?/?([^/]+)?/?([^/]+)?/?([^/]+)?$',
-    ),
-    match = path.match(regex),
-    rest_params = [];
+// const handlers = [
+//   (prefix: string) => (req: any, res: ServerResponse, next: () => void) => {},
+// ];
 
-  if (match) {
-    for (let i = 1; i < match.length; i++) {
-      if (typeof match[i] !== 'undefined') {
-        rest_params.push(match[i]);
-      }
-    }
+@Injectable()
+export class ModelRestful implements NestMiddleware {
+  handlers: RestfulHandler[] = [];
+
+  constructor(
+    private readonly configService: ConfigService,
+    indexHandler: IndexRestfulHandler,
+  ) {
+    this.handlers.push(indexHandler);
   }
 
-  return rest_params;
-};
+  use(req: any, res: ServerResponse, next: () => void) {
+    const config = this.configService.get<AppConfig>('app');
 
-export const modelRestful =
-  (config?: AppConfig) => (req: any, res: ServerResponse, next: () => void) => {
     const match = splitPath(
       config?.openapiPrefix || 'openapi',
       req.originalUrl,
     );
 
-    console.log(match);
+    const handler = this.handlers[match.length];
 
-    res.setHeader('content-type', 'application/json');
-    res.write(JSON.stringify({ success: true, url: req.originalUrl }));
-    res.end();
-    next();
-  };
+    if (handler) {
+      handler.invoke(req, res);
+    } else {
+      next();
+    }
+
+    // console.log(match);
+    // res.setHeader('content-type', 'application/json');
+    // res.write(JSON.stringify({ success: true, url: req.originalUrl }));
+    // res.end();
+  }
+}
