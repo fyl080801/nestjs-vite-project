@@ -10,13 +10,17 @@ import { StaticService, ViewServiceModule } from '@nestseed/view_service';
 import { MembershipModule } from '@nestseed/membership';
 import { DataAccessModule, ModelService } from '@nestseed/data_access';
 import { Rule } from './models/rule';
-import { AppsService, IndexRestfulHandler } from './service';
+import {
+  AppsService,
+  IndexRestfulHandler,
+  ResourceRestfulHandler,
+} from './service';
 import { ModelRestful } from './middleware';
 import { ConfigService } from '@nestjs/config';
 import { AppConfig } from './types';
 
 @Module({
-  providers: [AppsService, IndexRestfulHandler],
+  providers: [AppsService, IndexRestfulHandler, ResourceRestfulHandler],
   imports: [DataAccessModule, ViewServiceModule, MembershipModule],
   controllers: [HomeController, AppController],
 })

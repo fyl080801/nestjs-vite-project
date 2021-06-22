@@ -9,5 +9,5 @@ export interface AppConfig {
 }
 
 export interface RestfulHandler {
-  invoke(req: any, res: ServerResponse): void;
+  invoke(matched: string[], req: any, res: ServerResponse): void;
 }

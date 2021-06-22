@@ -1,8 +1,12 @@
-import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { Injectable, Scope } from '@nestjs/common';
 import { DataContextService } from '@nestseed/data_access';
 import { ServerResponse } from 'http';
-import { AppConfig, RestfulHandler } from '../types';
+import { RestfulHandler } from '../types';
+import {
+  handleResourceDescribe,
+  handleResourceIndex,
+  handleResourceCreate,
+} from '../utils/resource';
 
 class BaseHandler {
   handleError(res: ServerResponse, msg: string) {
@@ -18,21 +22,14 @@ class BaseHandler {
   }
 }
 
-@Injectable()
+@Injectable({ scope: Scope.REQUEST })
 export class IndexRestfulHandler extends BaseHandler implements RestfulHandler {
-  constructor(
-    private readonly configService: ConfigService,
-    private readonly context: DataContextService,
-  ) {
+  constructor(private readonly context: DataContextService) {
     super();
   }
 
-  invoke(req: any, res: ServerResponse) {
-    const config = this.configService.get<AppConfig>('app');
-    if (
-      req.method === 'GET' &&
-      (req.originalUrl === config?.openapiPrefix || 'openapi')
-    ) {
+  invoke(matched: string[], req: any, res: ServerResponse) {
+    if (req.method === 'GET') {
       this.handleIndex(res);
     } else {
       this.handleError(res, 'Route does not match known patterns.');
@@ -40,7 +37,8 @@ export class IndexRestfulHandler extends BaseHandler implements RestfulHandler {
   }
 
   handleIndex(res: ServerResponse) {
-    const models = this.context.connection().models;
+    const { models } = this.context.connection();
+
     const result = Object.keys(models).map((key) => {
       return {
         name: models[key].name,
@@ -59,31 +57,40 @@ export class IndexRestfulHandler extends BaseHandler implements RestfulHandler {
   }
 }
 
-// @Injectable()
-// export class ModelResource {
-//   constructor(private readonly context: DataContextService) {}
+@Injectable({ scope: Scope.REQUEST })
+export class ResourceRestfulHandler
+  extends BaseHandler
+  implements RestfulHandler
+{
+  methods = {
+    GET: handleResourceIndex,
+    HEAD: handleResourceDescribe,
+    POST: handleResourceCreate,
+  };
 
-//   async index(name: string, query?: any) {
-//     const where = !!query ? { where: query } : {};
+  constructor(private readonly context: DataContextService) {
+    super();
+  }
 
-//     const result = await this.context.connection().models[name].findAll(where);
+  invoke(matched: string[], req: any, res: ServerResponse): void {
+    this.handleResource(matched[0], req, res);
+  }
 
-//     return result;
-//   }
+  async handleResource(name: string, req: any, res: ServerResponse) {
+    const { models } = this.context.connection();
+    const model = models[name];
 
-//   describe(name: string) {
-//     //
-//   }
+    if (!model) {
+      this.handleError(res, 'Route does not match known model.');
+      return;
+    }
 
-//   create(name: string, attributes) {
-//     //
-//   }
-
-//   update(name: string, identifier, attributes) {
-//     //
-//   }
-
-//   drop(name: string, identifier) {
-//     //
-//   }
-// }
+    try {
+      const result = await this.methods[req.method](req, model);
+      this.handleSuccess(res, result);
+    } catch (ex) {
+      console.log(ex);
+      this.handleError(res, ex.message);
+    }
+  }
+}
