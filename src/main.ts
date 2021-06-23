@@ -8,11 +8,11 @@ import {
 async function bootstrap() {
   process.setMaxListeners(0);
 
-  const fastify = new FastifyAdapter();
+  const adapter = new FastifyAdapter();
 
   const app = await NestFactory.create<NestFastifyApplication>(
     MainModule,
-    fastify,
+    adapter,
   );
 
   await app.listen(3000);

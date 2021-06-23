@@ -1,4 +1,5 @@
 import { IncomingMessage } from 'http';
+import { parse } from 'querystring';
 
 const getRequestBody = async (req: IncomingMessage) => {
   const contentType = req.headers['content-type'] || '';
@@ -9,10 +10,12 @@ const getRequestBody = async (req: IncomingMessage) => {
         if (contentType.includes('application/json')) {
           resolve(JSON.parse(data.toString()));
         } else if (contentType.includes('application/x-www-form-urlencoded')) {
-          // form
-        } else if (contentType.includes('multipart/form-data')) {
-          // formdata
-        } else {
+          resolve(parse(data.toString()));
+        }
+        // else if (contentType.includes('multipart/form-data')) {
+        //   // 暂不支持文件提交
+        // }
+        else {
           resolve(data.toString());
         }
       } catch (ex) {
