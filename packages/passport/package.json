@@ -27,7 +27,7 @@
     "url": "https://github.com/fyl080801/nest-test/issues"
   },
   "dependencies": {
-    "@nestjs/common": "^8.0.0",
+    "@nestjs/common": "^8.0.1",
     "@nestjs/config": "^1.0.0",
     "@nestjs/jwt": "^8.0.0",
     "@nestjs/passport": "^8.0.0",
