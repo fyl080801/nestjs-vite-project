@@ -4,7 +4,7 @@ import { MembershipModule } from '@nestseed/membership';
 import { LocalStrategy, CookieStrategy, JwtStrategy } from './strategy';
 import { AuthController } from './controller/auth';
 import { JwtModule } from '@nestjs/jwt';
-import { UnauthorizedrRedirect } from './filter/unauthorized';
+import { UnauthorizedRedirect } from './filter/unauthorized';
 import { ConfigService } from '@nestjs/config';
 import { AuthConfig } from './types';
 import { jwtConstants } from './utils/constants';
@@ -34,10 +34,10 @@ export * from './types';
     LocalStrategy,
     JwtStrategy,
     CookieStrategy,
-    UnauthorizedrRedirect,
+    UnauthorizedRedirect,
   ],
-  exports: [JwtModule, AuthService, UnauthorizedrRedirect],
+  exports: [JwtModule, AuthService, UnauthorizedRedirect],
 })
 export class PassportModule {}
 
-export { UnauthorizedrRedirect, AuthService };
+export { UnauthorizedRedirect, AuthService };

@@ -1,5 +1,4 @@
 import {
-  Injectable,
   ArgumentsHost,
   Catch,
   ExceptionFilter,
@@ -9,9 +8,8 @@ import { ConfigService } from '@nestjs/config';
 import { Response } from 'express';
 import { AuthConfig } from '../types';
 
-@Injectable()
 @Catch(UnauthorizedException)
-export class UnauthorizedrRedirect implements ExceptionFilter {
+export class UnauthorizedRedirect implements ExceptionFilter {
   constructor(private readonly configService: ConfigService) {}
 
   catch(exception: any, host: ArgumentsHost) {
@@ -26,9 +24,8 @@ export class UnauthorizedrRedirect implements ExceptionFilter {
   }
 }
 
-@Injectable()
 @Catch(UnauthorizedException)
-export class UnauthorizedrPathRedirect implements ExceptionFilter {
+export class UnauthorizedPathRedirect implements ExceptionFilter {
   constructor(private readonly redirect: string) {}
 
   catch(exception: any, host: ArgumentsHost) {

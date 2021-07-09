@@ -12,8 +12,8 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {
-  UnauthorizedrRedirect,
-  UnauthorizedrPathRedirect,
+  UnauthorizedRedirect,
+  UnauthorizedPathRedirect,
 } from '../filter/unauthorized';
 import { AuthorizationAuthGuard } from '../guard/authorization';
 import { Response } from 'express';
@@ -62,16 +62,16 @@ export class AuthenticatedInterceptor implements NestInterceptor {
 }
 
 export const Authentication = (options: AuthorizationOptions = {}) => {
-  const list = [UseGuards(AuthorizationAuthGuard)];
+  const list = [];
 
   // 这里决定会话验证失败的跳转行为
   if (options.redirect === true) {
-    list.push(UseFilters(UnauthorizedrRedirect));
+    list.push(UseFilters(UnauthorizedRedirect));
   } else if (typeof options.redirect === 'string') {
-    list.push(UseFilters(new UnauthorizedrPathRedirect(options.redirect)));
+    list.push(UseFilters(new UnauthorizedPathRedirect(options.redirect)));
   }
 
-  return applyDecorators(...list);
+  return applyDecorators(...list, UseGuards(AuthorizationAuthGuard));
 };
 
 export const Authenticated = () => {
