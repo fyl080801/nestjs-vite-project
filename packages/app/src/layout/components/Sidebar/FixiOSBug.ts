@@ -15,18 +15,18 @@
 // }
 
 import { computed, onMounted } from 'vue';
-import { useStore } from 'vuex';
+import { DeviceType, useAppStore } from '../../../store';
 
 export const useFixOSBug = (subMenu) => {
-  const { state } = useStore();
+  const { state } = useAppStore();
 
-  const device = computed(() => state.app.device);
+  const device = computed(() => state.device);
 
   const fixBugIniOS = () => {
     if (subMenu) {
       const handleMouseleave = subMenu.handleMouseleave;
       subMenu.handleMouseleave = (e) => {
-        if (device.value === 'mobile') {
+        if (device.value === DeviceType.Mobile) {
           return;
         }
         handleMouseleave(e);

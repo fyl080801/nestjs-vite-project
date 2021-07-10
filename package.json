@@ -99,7 +99,6 @@
     "vite-plugin-svg-sprite": "^0.2.3",
     "vue": "^3.1.4",
     "vue-router": "^4.0.10",
-    "vuex": "^4.0.2",
     "webpack": "^5.44.0"
   },
   "jest": {

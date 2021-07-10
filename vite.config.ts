@@ -12,6 +12,9 @@ export default defineConfig({
       usePolling: true,
       interval: 100,
     },
+    fs: {
+      allow: ['*'],
+    },
   },
   plugins: [
     vue(),

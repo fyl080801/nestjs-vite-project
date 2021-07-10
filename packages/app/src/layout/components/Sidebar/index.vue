@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
-// import { useStore } from 'vuex';
 import { useRoute } from 'vue-router';
 import Logo from './Logo.vue';
 import SidebarItem from './SidebarItem.vue';
