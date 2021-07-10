@@ -1,6 +1,6 @@
 import variables from '../../styles/element-variables.scss';
 import defaultSettings from '../../settings';
-import { reactive, readonly } from 'vue';
+import { store } from '../base';
 
 export interface ISettingsState {
   theme: string;
@@ -18,26 +18,14 @@ const changeSetting =
     }
   };
 
-const createState = (): ISettingsState => {
-  return reactive({
+export const useSettingsStore = store(
+  {
     fixedHeader: defaultSettings.fixedHeader,
     showSettings: defaultSettings.showSettings,
     showSidebarLogo: defaultSettings.showSidebarLogo,
     showTagsView: defaultSettings.showTagsView,
     sidebarTextTheme: defaultSettings.sidebarTextTheme,
     theme: variables.theme,
-  });
-};
-
-const createActions = (state) => {
-  return {
-    changeSetting: changeSetting(state),
-  };
-};
-
-const state = createState();
-const actions = createActions(state);
-
-export const useSettingsStore = () => {
-  return readonly({ state, ...actions });
-};
+  },
+  (state) => ({ changeSetting: changeSetting(state) }),
+);

@@ -13,7 +13,7 @@ export default defineConfig({
       interval: 100,
     },
     fs: {
-      allow: ['*'],
+      strict: false,
     },
   },
   plugins: [

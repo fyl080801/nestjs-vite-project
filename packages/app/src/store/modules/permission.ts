@@ -1,5 +1,5 @@
-import { reactive, readonly } from 'vue';
 import { asyncRoutes, constantRoutes } from '../../router';
+import { store } from '../base';
 
 export interface IPermissionState {
   routes: any[];
@@ -53,22 +53,7 @@ const generateRoutes = (state: IPermissionState) => (roles: any[]) => {
   return accessedRoutes;
 };
 
-const createState = (): IPermissionState => {
-  return reactive({
-    routes: [],
-    dynamicRoutes: [],
-  });
-};
-
-const createActions = (state: IPermissionState) => {
-  return {
-    generateRoutes: generateRoutes(state),
-  };
-};
-
-const state = createState();
-const actions = createActions(state);
-
-export const usePermissionStore = () => {
-  return readonly({ state, ...actions });
-};
+export const usePermissionStore = store(
+  { routes: [], dynamicRoutes: [] },
+  (state) => ({ generateRoutes: generateRoutes(state) }),
+);

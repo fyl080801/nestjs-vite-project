@@ -3,7 +3,7 @@ import { logout, getInfo } from '../../api/user';
 import router, { resetRouter } from '../../router';
 import { useTagsViewStore } from './tagsView';
 import { usePermissionStore } from './permission';
-import { reactive, readonly } from 'vue';
+import { store } from '../base';
 
 export interface IUserState {
   // token: string;
@@ -99,28 +99,18 @@ const changeRoles = (state: IUserState) => async () => {
   delAllViews();
 };
 
-const createState = (): IUserState => {
-  return reactive({
+export const useUserStore = store(
+  {
     // token: getToken() || '',
     name: '',
     avatar: '',
     introduction: '',
     roles: [],
     email: '',
-  });
-};
-
-const createActions = (state) => {
-  return {
+  },
+  (state) => ({
     getUserInfo: getUserInfo(state),
     userLogout: userLogout(state),
     changeRoles: changeRoles(state),
-  };
-};
-
-const state = createState();
-const actions = createActions(state);
-
-export const useUserStore = () => {
-  return readonly({ state, ...actions });
-};
+  }),
+);

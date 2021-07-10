@@ -1,4 +1,4 @@
-import { reactive, readonly } from 'vue';
+import { store } from '../base';
 // import { RouteRecord } from 'vue-router';
 
 export interface ITagView {
@@ -130,15 +130,12 @@ const updateVisitedView = (state: ITagsViewState) => (view) => {
   }
 };
 
-const createState = (): ITagsViewState => {
-  return reactive({
+export const useTagsViewStore = store(
+  {
     visitedViews: [],
     cachedViews: [],
-  });
-};
-
-const createActions = (state) => {
-  return {
+  },
+  (state) => ({
     addView: addView(state),
     addVisitedView: addVisitedView(state),
     addCachedView: addCachedView(state),
@@ -152,12 +149,5 @@ const createActions = (state) => {
     delAllVisitedViews: delAllVisitedViews(state),
     delAllCachedViews: delAllCachedViews(state),
     updateVisitedView: updateVisitedView(state),
-  };
-};
-
-const state = createState();
-const actions = createActions(state);
-
-export const useTagsViewStore = () => {
-  return readonly({ state, ...actions });
-};
+  }),
+);
