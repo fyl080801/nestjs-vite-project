@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.4](https://github.com/fyl080801/nestjs-vite-project/compare/@nestseed/admin_login@1.1.3...@nestseed/admin_login@1.1.4) (2021-07-16)
+
+
+### Bug Fixes
+
+* 路由目录冲突问题 ([2052941](https://github.com/fyl080801/nestjs-vite-project/commit/20529419e07bf8d973696a38ad5bd952b82e5d98))
+
+
+
+
+
 ## [1.1.3](https://github.com/fyl080801/nestjs-vite-project/compare/@nestseed/admin_login@1.1.2...@nestseed/admin_login@1.1.3) (2021-04-29)
 
 **Note:** Version bump only for package @nestseed/admin_login

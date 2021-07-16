@@ -1,6 +1,6 @@
 {
   "name": "@nestseed/membership",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "> TODO: description",
   "author": "fengyuanliang3 <fengyuanliang2@jd.com>",
   "homepage": "https://github.com/fyl080801/nest-test#readme",
@@ -28,6 +28,6 @@
   },
   "dependencies": {
     "@nestjs/common": "^8.0.3",
-    "@nestseed/data_access": "^1.0.0"
+    "@nestseed/data_access": "^1.1.0"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@nestseed/passport",
-  "version": "1.1.3",
+  "version": "1.2.0",
   "description": "> TODO: description",
   "author": "fengyuanliang3 <fengyuanliang2@jd.com>",
   "homepage": "https://github.com/fyl080801/nest-test#readme",
@@ -31,7 +31,7 @@
     "@nestjs/config": "^1.0.0",
     "@nestjs/jwt": "^8.0.0",
     "@nestjs/passport": "^8.0.0",
-    "@nestseed/membership": "^1.0.0",
+    "@nestseed/membership": "^1.1.0",
     "passport-cookie": "^1.0.9",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0"
