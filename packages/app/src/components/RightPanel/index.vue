@@ -1,12 +1,5 @@
 <script lang="ts" setup>
-import {
-  defineProps,
-  ref,
-  watch,
-  onBeforeUnmount,
-  onMounted,
-  computed,
-} from 'vue';
+import { ref, watch, onBeforeUnmount, onMounted, computed } from 'vue';
 import { useSettingsStore } from '../../store';
 import { addClass, removeClass } from '../../utils';
 

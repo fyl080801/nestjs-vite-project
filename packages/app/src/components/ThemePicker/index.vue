@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { reactive, computed, watch, defineEmit } from 'vue';
+import { reactive, computed, watch } from 'vue';
 import { ElMessage, ElColorPicker, version } from 'element-plus';
 import { useSettingsStore } from '../../store';
 
 // const version = require('element-plus/package.json').version; // element-ui version from node_modules
 const ORIGINAL_THEME = '#409EFF'; // default color
-const emit = defineEmit(['change']);
+const emit = defineEmits(['change']);
 
 const { state } = useSettingsStore();
 const defaultTheme = computed(() => state.theme);

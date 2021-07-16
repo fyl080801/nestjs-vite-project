@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import path from 'path';
-import { ref, defineProps, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import { isExternal } from '../../../utils/validate';
 import Item from './Item.vue';
 import AppLink from './Link.vue';

@@ -1,21 +1,12 @@
 <script lang="ts" setup>
-import {
-  ref,
-  computed,
-  onMounted,
-  onUnmounted,
-  defineEmit,
-  defineProps,
-  watch,
-  // getCurrentInstance,
-} from 'vue';
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
 import { ElScrollbar } from 'element-plus';
 
 const tagAndTagSpacing = 4; // tagAndTagSpacing
 
 // const instance = getCurrentInstance();
 const props = defineProps({ modelValue: { type: Object } });
-const emit = defineEmit(['update:modelValue', 'scroll']);
+const emit = defineEmits(['update:modelValue', 'scroll']);
 const scrollContainer = ref();
 const left = ref(0);
 const scrollWrapper = computed(() => {
