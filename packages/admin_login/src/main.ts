@@ -4,7 +4,7 @@ import { createApp } from 'vue';
 import router from './router';
 
 if (import.meta.env.DEV) {
-  import('element-plus/lib/theme-chalk/index.css');
+  import('element-plus/theme-chalk/index.css');
 }
 
 (async () => {
