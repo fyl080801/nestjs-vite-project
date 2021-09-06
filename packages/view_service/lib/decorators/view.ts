@@ -12,6 +12,7 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ViewService } from '../service/view';
+import { getCallerFile } from '../utils/helper';
 
 @Injectable({ scope: Scope.REQUEST })
 export class ViewInterceptor implements NestInterceptor {
@@ -50,8 +51,11 @@ export class RequestHeaderInterceptor implements NestInterceptor {
 }
 
 export const View = (path: string, view?: string) => {
-  const pathAndView = path && view;
+  // 能否自动获取调用函数所在文件，找到属于哪个模块?
+  const filename = getCallerFile()(new Error());
+  console.log(filename);
 
+  const pathAndView = path && view;
   return applyDecorators(
     Get(pathAndView ? path : undefined),
     UseInterceptors(

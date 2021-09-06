@@ -7,6 +7,39 @@ import { renderString } from 'nunjucks';
 import { StaticService } from './static';
 import { Constants } from '../types';
 
+const getCallerFile = function () {
+  let filename: string;
+
+  const pst = Error.prepareStackTrace;
+  Error.prepareStackTrace = function (err, stack) {
+    console.log(stack);
+    return stack;
+  };
+
+  try {
+    let callerfile;
+    const err = new Error();
+    const currentfile = (<NodeJS.CallSite[]>(err.stack as unknown))
+      .shift()
+      .getFileName();
+
+    while (err.stack.length) {
+      callerfile = (<NodeJS.CallSite[]>(err.stack as unknown))
+        .shift()
+        .getFileName();
+
+      if (currentfile !== callerfile) {
+        filename = callerfile;
+        break;
+      }
+    }
+  } catch (err) {}
+
+  Error.prepareStackTrace = pst;
+
+  return filename;
+};
+
 @Injectable({ scope: Scope.REQUEST })
 export class ViewService {
   constructor(
