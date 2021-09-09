@@ -2,7 +2,9 @@ import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import legacy from '@vitejs/plugin-legacy';
 import createSvgSpritePlugin from 'vite-plugin-svg-sprite';
-import { MODULE_PATH } from '@nestseed/common';
+import * as path from 'path';
+
+const MODULE_PATH = path.join(process.cwd(), '/packages');
 
 export default defineConfig({
   root: MODULE_PATH,

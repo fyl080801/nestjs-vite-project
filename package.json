@@ -116,14 +116,6 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "./coverage",
-    "testEnvironment": "node",
-    "roots": [
-      "<rootDir>/src/",
-      "<rootDir>/packages/"
-    ],
-    "moduleNameMapper": {
-      "@nestseed/app/(.*)": "<rootDir>/packages/app/src/$1",
-      "@nestseed/app": "<rootDir>/packages/app/src"
-    }
+    "testEnvironment": "node"
   }
 }

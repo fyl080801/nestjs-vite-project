@@ -1,20 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "./dist"
-  },
-  "include": ["lib/**/*"],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "test",
-    "**/*spec.ts",
-    "src",
-    "vite.config.ts"
-  ],
-  "references": [
-    { "path": "../view_service" },
-    { "path": "../passport" },
-    { "path": "../membership" }
-  ]
+    "rootDir": "../../",
+    "outDir": "dist"
+  }
 }

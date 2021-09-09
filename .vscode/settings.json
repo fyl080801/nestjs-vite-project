@@ -1,4 +1,7 @@
 {
     "volar.tsPlugin": true,
-    "sqltools.connections": []
+    "sqltools.connections": [],
+    "cSpell.words": [
+        "nestseed"
+    ]
 }
