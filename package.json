@@ -42,7 +42,7 @@
     "mysql2": "^2.3.0",
     "nunjucks": "^3.2.3",
     "passport": "^0.4.1",
-    "passport-cookie": "^1.0.9",
+    "passport-cookie": "^1.0.8",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "path-to-regexp": "^6.2.0",

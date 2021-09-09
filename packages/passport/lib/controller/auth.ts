@@ -4,8 +4,7 @@ import { Authentication } from '../decorators/authentication';
 import { Jwt } from '../decorators/jwt';
 import { ConfigService } from '@nestjs/config';
 import { AuthConfig } from '../types';
-import { FastifyReply } from 'fastify';
-import 'fastify-cookie';
+import { Response } from 'express';
 
 @Controller('auth')
 export class AuthController {
@@ -21,7 +20,7 @@ export class AuthController {
   }
 
   @Get('logout')
-  logout(@Res({ passthrough: true }) response: FastifyReply) {
+  logout(@Res({ passthrough: true }) response: Response) {
     const config = this.configService.get<AuthConfig>('auth', {});
     const cookitname = config.cookie?.name;
     response.clearCookie(cookitname);

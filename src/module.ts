@@ -8,9 +8,9 @@ import { DataAccessModule } from '@nestseed/data_access';
 import { MembershipModule } from '@nestseed/membership';
 import config from './config';
 import { HttpAdapterHost } from '@nestjs/core';
-import cookie from 'fastify-cookie';
-import { NestFastifyApplication } from '@nestjs/platform-fastify';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import { CookieConfig } from './types';
+import * as cookieParser from 'cookie-parser';
 
 @Module({
   imports: [
@@ -35,7 +35,8 @@ export class MainModule implements OnModuleInit {
     const config = this.configService.get<CookieConfig>('cookie');
 
     this.adapterHost.httpAdapter
-      .getInstance<NestFastifyApplication>()
-      .register(cookie, { secret: config?.secret });
+      .getInstance<NestExpressApplication>()
+      .use(cookieParser({ secret: config?.secret }));
+    // .register(cookie, { secret: config?.secret });
   }
 }
