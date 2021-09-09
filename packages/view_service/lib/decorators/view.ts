@@ -56,6 +56,7 @@ export const View = (path: string, view?: string) => {
   console.log(filename);
 
   const pathAndView = path && view;
+
   return applyDecorators(
     Get(pathAndView ? path : undefined),
     UseInterceptors(

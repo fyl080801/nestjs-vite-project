@@ -22,8 +22,8 @@ export class AuthController {
   @Get('logout')
   logout(@Res({ passthrough: true }) response: Response) {
     const config = this.configService.get<AuthConfig>('auth', {});
-    const cookitname = config.cookie?.name;
-    response.clearCookie(cookitname);
+    const cookiename = config.cookie?.name;
+    response.clearCookie(cookiename);
   }
 
   @Get('profile')

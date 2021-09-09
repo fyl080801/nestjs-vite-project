@@ -74,7 +74,7 @@ export class ViewService {
     } else {
       const devLocation = path.resolve(
         location,
-        '../',
+        './',
         viewPath.splice(1, viewPath.length).join('/'),
       );
 

@@ -19,7 +19,6 @@ export class StaticService {
   addStatic(root: string, namepath: string) {
     const paths = namepath.split('/');
     const rootPath = path.resolve(root, `../${namepath}`).toString();
-
     this.setPath(paths[0], path.resolve(root, '../'));
     this.adapterHost.httpAdapter.useStaticAssets(rootPath);
   }

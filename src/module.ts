@@ -10,7 +10,7 @@ import config from './config';
 import { HttpAdapterHost } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { CookieConfig } from './types';
-import * as cookieParser from 'cookie-parser';
+import cookieParser from 'cookie-parser';
 
 @Module({
   imports: [
@@ -36,7 +36,6 @@ export class MainModule implements OnModuleInit {
 
     this.adapterHost.httpAdapter
       .getInstance<NestExpressApplication>()
-      .use(cookieParser({ secret: config?.secret }));
-    // .register(cookie, { secret: config?.secret });
+      .use(cookieParser(config?.secret));
   }
 }
